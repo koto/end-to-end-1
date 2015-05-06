@@ -26,10 +26,6 @@ goog.provide('e2e.ext.Launcher');
 
 goog.require('e2e.ext.Preferences');
 goog.require('e2e.ext.api.Api');
-goog.require('e2e.ext.constants.StorageKey');
-goog.require('e2e.openpgp.ContextImpl');
-goog.require('goog.storage.mechanism.HTML5LocalStorage');
-goog.require('goog.storage.mechanism.PrefixedMechanism');
 
 goog.scope(function() {
 var ext = e2e.ext;
@@ -40,11 +36,12 @@ var messages = e2e.ext.messages;
 
 /**
  * Base class for the End-To-End launcher.
- * @param {!goog.storage.mechanism.IterableMechanism} storage Storage mechanism
- *     for persistent data.
+ * @param {!e2e.openpgp.Context} pgpContext The OpenPGP context to use.
+ * @param {!goog.storage.mechanism.IterableMechanism} preferencesStorage
+ *    Storage mechanism for user preferences.
  * @constructor
  */
-ext.Launcher = function(storage) {
+ext.Launcher = function(pgpContext, preferencesStorage) {
 
   /**
    * Whether the launcher was started correctly.
@@ -54,26 +51,19 @@ ext.Launcher = function(storage) {
   this.started_ = false;
 
   /**
-   * The PGP context used by the extension.
-   * @type {e2e.openpgp.Context}
+   * The OpenPGP context used by the extension.
+   * @type {!e2e.openpgp.Context}
    * @private
    */
-  this.pgpContext_ = new e2e.openpgp.ContextImpl(storage);
-
-  /**
-   * Storage mechanism for persistent data.
-   * @type {!goog.storage.mechanism.IterableMechanism}
-   * @private
-   */
-  this.storage_ = storage;
+  this.pgpContext_ = pgpContext;
 
   /**
    * Object for accessing user preferences.
-   * @type {e2e.ext.Preferences}
+   * @type {!e2e.ext.Preferences}
    * @private
    */
-  this.preferences_ = new e2e.ext.Preferences(this.getStorage(
-      constants.StorageKey.PREFERENCES));
+  this.preferences_ = new e2e.ext.Preferences(preferencesStorage);
+
 
   /**
    * The context API that the rest of the extension can use to communicate with
@@ -102,15 +92,24 @@ ext.Launcher.prototype.start = function(opt_passphrase) {
  * @private
  */
 ext.Launcher.prototype.start_ = function(passphrase) {
-  this.pgpContext_.setKeyRingPassphrase(passphrase);
-  if (goog.global.chrome &&
-      goog.global.chrome.runtime &&
-      goog.global.chrome.runtime.getManifest) {
-    var manifest = chrome.runtime.getManifest();
-    this.pgpContext_.setArmorHeader(
-        'Version',
-        manifest.name + ' v' + manifest.version);
-  }
+  this.pgpContext_.setKeyRingPassphrase(passphrase).addCallback(function() {
+    if (goog.global.chrome &&
+        goog.global.chrome.runtime &&
+        goog.global.chrome.runtime.getManifest) {
+      var manifest = chrome.runtime.getManifest();
+      this.pgpContext_.setArmorHeader(
+          'Version',
+          manifest.name + ' v' + manifest.version).addCallback(
+              this.completeStart_, this);
+    } else {
+      this.completeStart_();
+    }
+  }, this);
+};
+
+
+/** @private */
+ext.Launcher.prototype.completeStart_ = function() {
   this.ctxApi_.installApi();
   this.started_ = true;
   this.preferences_.initDefaults();
@@ -180,26 +179,18 @@ ext.Launcher.prototype.showWelcomeScreen = function() {
 };
 
 
-/**
- * Returns storage mechanism for a given namespace.
- * @param  {string} namespace The namespace.
- * @return {!goog.storage.mechanism.PrefixedMechanism}
- */
-ext.Launcher.prototype.getStorage = function(namespace) {
-  return new goog.storage.mechanism.PrefixedMechanism(this.storage_,
-      namespace);
-};
-
-
 
 /**
- * @param {goog.storage.mechanism.IterableMechanism=} opt_storage
+ * Constructor to use in End-To-End Chrome extension.
+ * @param {!e2e.openpgp.Context} pgpContext The OpenPGP context to use.
+ * @param {!goog.storage.mechanism.IterableMechanism} preferencesStorage Storage
+ * mechanism for user preferences.
  * @constructor
  * @extends {ext.Launcher}
  */
-ext.ExtensionLauncher = function(opt_storage) {
-  var storage = opt_storage || new goog.storage.mechanism.HTML5LocalStorage();
-  ext.ExtensionLauncher.base(this, 'constructor', storage);
+ext.ExtensionLauncher = function(pgpContext, preferencesStorage) {
+  ext.ExtensionLauncher.base(this, 'constructor', pgpContext,
+      preferencesStorage);
 };
 goog.inherits(ext.ExtensionLauncher, ext.Launcher);
 
@@ -232,12 +223,15 @@ ext.ExtensionLauncher.prototype.createWindow = function(url, isForeground,
 
 
 /**
- * @param {!goog.storage.mechanism.IterableMechanism} storage
+ * Constructor to use in End-To-End Chrome app.
+ * @param {!e2e.openpgp.Context} pgpContext The OpenPGP context to use.
+ * @param {!goog.storage.mechanism.IterableMechanism} preferencesStorage Storage
+ * mechanism for user preferences.
  * @constructor
  * @extends {ext.Launcher}
  */
-ext.AppLauncher = function(storage) {
-  ext.AppLauncher.base(this, 'constructor', storage);
+ext.AppLauncher = function(pgpContext, preferencesStorage) {
+  ext.AppLauncher.base(this, 'constructor', pgpContext, preferencesStorage);
   chrome.app.runtime.onLaunched.addListener(function() {
     chrome.app.window.create('webview.html', {
       innerBounds: {
@@ -259,7 +253,11 @@ ext.AppLauncher.prototype.updatePassphraseWarning = function() {
 /** @override */
 ext.AppLauncher.prototype.createWindow = function(url, isForeground, callback) {
   chrome.app.window.create(url, {
-    focused: isForeground
+    focused: isForeground,
+    innerBounds: {
+      width: 900,
+      height: 700
+    }
   }, callback);
 };
 

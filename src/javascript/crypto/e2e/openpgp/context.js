@@ -43,6 +43,8 @@ e2e.openpgp.Context.prototype.armorOutput;
  * Specifies the value of an armor header.
  * @param {string} name The name of the header.
  * @param {string} version The value of the header.
+ * @return {!e2e.async.Result.<undefined>}
+ * @expose
  */
 e2e.openpgp.Context.prototype.setArmorHeader;
 
@@ -69,6 +71,7 @@ e2e.openpgp.Context.KeyType = {
 /**
  * @param {string} passphrase The passphrase for encrypting the KeyRing
  *     when stored locally.
+ * @return {!e2e.async.Result.<undefined>}
  * @expose
  */
 e2e.openpgp.Context.prototype.setKeyRingPassphrase;
@@ -77,20 +80,23 @@ e2e.openpgp.Context.prototype.setKeyRingPassphrase;
 /**
  * @param {string} passphrase Change the passphrase for encrypting the KeyRing
  *     when stored locally. Empty string for unencrypted.
+ * @return {!e2e.async.Result.<undefined>}
  * @expose
  */
 e2e.openpgp.Context.prototype.changeKeyRingPassphrase;
 
 
 /**
- * @return {boolean} True if there is a correct keyring passphrase set.
+ * @return {!e2e.async.Result.<boolean>} True if there is a correct keyring
+ *     passphrase set.
  * @expose
  */
 e2e.openpgp.Context.prototype.hasPassphrase;
 
 
 /**
- * @return {boolean} True if the keyring is encrypted in persistent storage.
+ * @return {!e2e.async.Result.<boolean>} True if the keyring is encrypted
+ *     in persistent storage.
  * @expose
  */
 e2e.openpgp.Context.prototype.isKeyRingEncrypted;
@@ -110,8 +116,9 @@ e2e.openpgp.Context.prototype.getKeyDescription;
 /**
  * Imports an armor encoded, or pure PGP key(s) into the Context.
  * All ASCII armors from the string will be processed.
- * @param {function(string, function(string))} passphraseCallback This callback
- *     is used for requesting an action-specific passphrase from the user.
+ * @param {function(string):!e2e.async.Result<string>} passphraseCallback This
+ *     callback is used for requesting an action-specific passphrase from the
+ *     user.
  * @param {!e2e.ByteArray|string} key The key(s) to import.
  * @return {!e2e.openpgp.ImportKeyResult} List of user IDs that were
  *     successfully imported.
@@ -155,8 +162,9 @@ e2e.openpgp.Context.prototype.encryptSign;
 
 /**
  * Verifies and decrypts signatures. It will also verify a cleartext message
- * @param {function(string, function(string))} passphraseCallback This callback
- *     is used for requesting an action-specific passphrase from the user.
+ * @param {function(string):!e2e.async.Result<string>} passphraseCallback This
+ *     callback is used for requesting an action-specific passphrase from the
+ *     user.
  * @param {!e2e.ByteArray|string} encryptedMessage The encrypted data (or
  *     a cleartext message).
  * @return {!e2e.openpgp.VerifyDecryptResult} The result of the
@@ -206,6 +214,7 @@ e2e.openpgp.Context.prototype.getAllKeys;
 /**
  * Deletes all keys for a user identifier.
  * @param {string} uid The user id to delete all keys.
+ * @return {!e2e.async.Result.<undefined>}
  * @expose
  */
 e2e.openpgp.Context.prototype.deleteKey;

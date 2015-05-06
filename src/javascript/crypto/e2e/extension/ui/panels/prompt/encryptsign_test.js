@@ -32,6 +32,7 @@ goog.require('e2e.ext.utils');
 goog.require('e2e.ext.utils.TabsHelperProxy');
 goog.require('e2e.ext.utils.action');
 goog.require('e2e.ext.utils.text');
+goog.require('e2e.openpgp.ContextImpl');
 goog.require('e2e.openpgp.asciiArmor');
 goog.require('goog.dom');
 goog.require('goog.testing.AsyncTestCase');
@@ -62,7 +63,9 @@ function setUp() {
   mockControl = new goog.testing.MockControl();
   e2e.ext.testingstubs.initStubs(stubs);
 
-  launcher = new e2e.ext.ExtensionLauncher(fakeStorage);
+  launcher = new e2e.ext.ExtensionLauncher(
+      new e2e.openpgp.ContextImpl(new goog.testing.storage.FakeMechanism()),
+      fakeStorage);
   launcher.start();
   stubs.setPath('chrome.runtime.getBackgroundPage', function(callback) {
     callback({launcher: launcher});
@@ -297,7 +300,7 @@ function testSaveDraftIntoPage() {
   var subjectArg = new goog.testing.mockmatchers.SaveArgument(function(a) {
     return (!goog.isDef(a) || goog.isString(a));
   });
-  helperProxy.updateSelectedContent(contentArg, [], ORIGIN, true,
+  helperProxy.updateSelectedContent(contentArg, [], ORIGIN, false,
       goog.testing.mockmatchers.ignoreArgument,
       goog.testing.mockmatchers.ignoreArgument, subjectArg);
 
@@ -466,4 +469,48 @@ function testOnlyExactAddressesMatch() {
         panel.chipHolder_.children_[0].getValue());
     asyncTestCase.continueTesting();
   }, 500);
+}
+
+
+function testUpdateButtonTextNoSend() {
+  panel.setContentInternal({
+    request: true,
+    selection: PLAINTEXT,
+    recipients: [],
+    origin: ORIGIN,
+    canInject: true
+  });
+  stubs.replace(panel, 'canSend_', function() {
+    return false;
+  });
+  panel.render(document.body);
+  asyncTestCase.waitForAsync('Waiting for rendering to finish.');
+  asyncTestCase.timeout(function() {
+    assertContains(
+        'promptEncryptSignInsertLabel', document.body.textContent);
+    asyncTestCase.continueTesting();
+  }, 50);
+}
+
+
+function testUpdateButtonTextSend() {
+  panel.setContentInternal({
+    request: true,
+    selection: PLAINTEXT,
+    recipients: [],
+    origin: ORIGIN,
+    canInject: true
+  });
+  stubs.replace(panel, 'canSend_', function() {
+    return true;
+  });
+  panel.render(document.body);
+  asyncTestCase.waitForAsync('Waiting for rendering to finish.');
+  asyncTestCase.timeout(function() {
+    assertNotContains(
+        'promptEncryptSignInsertLabel', document.body.textContent);
+    assertContains(
+        'promptEncryptSignSendLabel', document.body.textContent);
+    asyncTestCase.continueTesting();
+  }, 50);
 }

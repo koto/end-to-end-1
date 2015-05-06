@@ -32,6 +32,7 @@ goog.require('e2e.otr.constants.MessageType');
 goog.require('e2e.otr.error.ParseError');
 goog.require('e2e.otr.message.Message');
 goog.require('e2e.otr.message.Signature');
+goog.require('e2e.otr.message.handler');
 goog.require('e2e.otr.util.Iterator');
 goog.require('e2e.otr.util.aes128ctr');
 goog.require('goog.crypt.Hmac');
@@ -47,13 +48,13 @@ var AUTHSTATE = constants.AUTHSTATE;
 /**
  * An OTRv3 REVEAL SIGNATURE.
  * @constructor
- * @extends {e2e.otr.message.Message}
+ * @extends {e2e.otr.message.Encoded}
  * @param {!e2e.otr.Session} session The enclosing session.
  */
 e2e.otr.message.RevealSignature = function(session) {
   goog.base(this, session);
 };
-goog.inherits(e2e.otr.message.RevealSignature, e2e.otr.message.Message);
+goog.inherits(e2e.otr.message.RevealSignature, e2e.otr.message.Encoded);
 
 
 /**
@@ -113,7 +114,7 @@ e2e.otr.message.RevealSignature.process = function(session, data) {
     case AUTHSTATE.AWAITING_REVEALSIG:
       var iter = new e2e.otr.util.Iterator(data);
       var r = e2e.otr.Data.parse(iter.nextEncoded()).deconstruct();
-      var aesxb = e2e.otr.Data.parse(iter.nextEncoded()).deconstruct();
+      var aesxb = iter.nextEncoded();
       var mac = iter.next(20);
 
       if (iter.hasNext() || mac.length != 20) {
@@ -123,7 +124,7 @@ e2e.otr.message.RevealSignature.process = function(session, data) {
       // TODO(rcc): Remove annotation when closure-compiler #260 is fixed.
       var gxmpi = e2e.otr.util.aes128ctr.decrypt(r, /** @type {!Uint8Array} */ (
           e2e.otr.assertState(session.authData.aesgx, 'AES(gx) not defined')));
-      var gxmpiHash = new e2e.hash.Sha256().hash(gxmpi);
+      var gxmpiHash = new e2e.hash.Sha256().hash(Array.apply([], gxmpi));
 
       var gx = Array.apply([], e2e.otr.Mpi.parse(gxmpi).deconstruct());
       var dh = session.keymanager.getKey().key;
@@ -142,7 +143,7 @@ e2e.otr.message.RevealSignature.process = function(session, data) {
       }
 
       var s = dh.generate(gx);
-      var keys = session.deriveKeyValues();
+      var keys = session.deriveKeyValues(s);
 
       var calculatedMac = new goog.crypt.Hmac(new e2e.hash.Sha256(), keys.m2)
           .getHmac(Array.apply([], aesxb));
@@ -154,17 +155,18 @@ e2e.otr.message.RevealSignature.process = function(session, data) {
         return;
       }
 
-      var xb = e2e.otr.util.aes128ctr.decrypt(keys.c, aesxb);
+      var xb = e2e.otr.util.aes128ctr.decrypt(keys.c,
+          e2e.otr.Data.parse(aesxb).deconstruct());
 
       iter = new e2e.otr.util.Iterator(xb);
       var pubBType = iter.next(2);
       // TODO(rcc): Make Type.parse accept Iterator to pull appropriate data.
-      var pubB = {
-        p: Array.apply([], iter.nextEncoded()),
-        q: Array.apply([], iter.nextEncoded()),
-        g: Array.apply([], iter.nextEncoded()),
-        y: Array.apply([], iter.nextEncoded())
-      };
+      var pubB = new e2e.otr.pubkey.Dsa({
+        p: Array.apply([], e2e.otr.Mpi.parse(iter.nextEncoded()).deconstruct()),
+        q: Array.apply([], e2e.otr.Mpi.parse(iter.nextEncoded()).deconstruct()),
+        g: Array.apply([], e2e.otr.Mpi.parse(iter.nextEncoded()).deconstruct()),
+        y: Array.apply([], e2e.otr.Mpi.parse(iter.nextEncoded()).deconstruct())
+      });
       var keyidB = iter.next(4);
       var sigmb = e2e.otr.Sig.parse(iter.next(40));
 
@@ -180,7 +182,7 @@ e2e.otr.message.RevealSignature.process = function(session, data) {
             keyidB
           ])));
 
-      if (!e2e.otr.Sig.verify(pubB, mb, sigmb)) {
+      if (!e2e.otr.Sig.verify(pubB.deconstruct(), mb, sigmb)) {
         // TODO(rcc): Log the error and/or warn the user.
         return;
       }
@@ -205,4 +207,6 @@ e2e.otr.message.RevealSignature.process = function(session, data) {
       e2e.otr.assertState(false, 'Invalid auth state.');
   }
 };
+
+e2e.otr.message.handler.add(e2e.otr.message.RevealSignature);
 });  // goog.scope

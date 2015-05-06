@@ -29,6 +29,7 @@ goog.require('e2e.otr.Serializable');
 goog.require('e2e.otr.Storable');
 goog.require('e2e.otr.error.NotImplementedError');
 goog.require('e2e.signer.Algorithm');
+goog.require('e2e.signer.Dsa');
 goog.require('e2e.signer.factory');
 goog.require('goog.object');
 
@@ -73,7 +74,13 @@ e2e.otr.Sig.prototype.deconstruct = function() {
  * @return {!e2e.otr.Sig} The generated packet.
  */
 e2e.otr.Sig.parse = function(body) {
-  throw new e2e.otr.error.NotImplementedError('Not yet implemented.');
+  if (body.length != 40) {
+    throw new e2e.otr.error.ParseError('Malformed SIG.');
+  }
+  return e2e.otr.Sig.unpack({
+    r: Array.apply([], body.subarray(0, 20)),
+    s: Array.apply([], body.subarray(20))
+  });
 };
 
 

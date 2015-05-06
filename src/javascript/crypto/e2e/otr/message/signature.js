@@ -29,6 +29,7 @@ goog.require('e2e.otr.Sig');
 goog.require('e2e.otr.constants');
 goog.require('e2e.otr.constants.MessageType');
 goog.require('e2e.otr.message.Message');
+goog.require('e2e.otr.message.handler');
 goog.require('e2e.otr.util.Iterator');
 goog.require('e2e.otr.util.aes128ctr');
 goog.require('goog.crypt.Hmac');
@@ -44,13 +45,13 @@ var AUTHSTATE = constants.AUTHSTATE;
 /**
  * An OTRv3 SIGNATURE.
  * @constructor
- * @extends {e2e.otr.message.Message}
+ * @extends {e2e.otr.message.Encoded}
  * @param {!e2e.otr.Session} session The enclosing session.
  */
 e2e.otr.message.Signature = function(session) {
   goog.base(this, session);
 };
-goog.inherits(e2e.otr.message.Signature, e2e.otr.message.Message);
+goog.inherits(e2e.otr.message.Signature, e2e.otr.message.Encoded);
 
 
 /**
@@ -70,7 +71,7 @@ e2e.otr.message.Signature.prototype.serializeMessageContent = function() {
   var ma = new goog.crypt.Hmac(new e2e.hash.Sha256(), keys.m1prime)
       .getHmac(Array.apply([], e2e.otr.serializeBytes([
         keyA.key.generate(),
-        this.session_.keymanager.getRemoteKey(new Uint8Array(4)).key,
+        this.session_.keymanager.getRemoteKey().key,
         this.session_.getPublicKey(),
         keyA.keyid
       ])));
@@ -102,7 +103,7 @@ e2e.otr.message.Signature.process = function(session, data) {
   switch (session.getAuthState()) {
     case AUTHSTATE.AWAITING_SIG:
       var iter = new e2e.otr.util.Iterator(data);
-      var aesxa = e2e.otr.Data.parse(iter.nextEncoded()).deconstruct();
+      var aesxa = iter.nextEncoded();
       var mac = iter.next(20);
 
       var keys = session.deriveKeyValues();
@@ -117,34 +118,37 @@ e2e.otr.message.Signature.process = function(session, data) {
         return;
       }
 
-      var xa = e2e.otr.util.aes128ctr.decrypt(keys.cprime, aesxa);
+      var xa = e2e.otr.util.aes128ctr.decrypt(keys.cprime,
+          e2e.otr.Data.parse(aesxa).deconstruct());
 
       iter = new e2e.otr.util.Iterator(xa);
 
       // TODO(rcc): Make Type.parse accept Iterator to pull appropriate data.
       var pubAType = iter.next(2);
-      var pubA = {
-        p: Array.apply([], iter.nextEncoded()),
-        q: Array.apply([], iter.nextEncoded()),
-        g: Array.apply([], iter.nextEncoded()),
-        y: Array.apply([], iter.nextEncoded())
-      };
+      var pubA = new e2e.otr.pubkey.Dsa({
+        p: Array.apply([], e2e.otr.Mpi.parse(iter.nextEncoded()).deconstruct()),
+        q: Array.apply([], e2e.otr.Mpi.parse(iter.nextEncoded()).deconstruct()),
+        g: Array.apply([], e2e.otr.Mpi.parse(iter.nextEncoded()).deconstruct()),
+        y: Array.apply([], e2e.otr.Mpi.parse(iter.nextEncoded()).deconstruct())
+      });
       var keyidA = iter.next(4);
       var sigma = e2e.otr.Sig.parse(iter.next(40));
 
+      var gy = session.keymanager.getRemoteKey(new Uint8Array(4)).key;
       var ma = new goog.crypt.Hmac(new e2e.hash.Sha256(), keys.m1prime)
           .getHmac(Array.apply([], e2e.otr.serializeBytes([
-            session.keymanager.getRemoteKey(new Uint8Array(4)).key,
+            gy,
             session.keymanager.getKey().key.generate(),
             pubA,
             keyidA
           ])));
 
-      if (!e2e.otr.Sig.verify(pubA, ma, sigma)) {
+      if (!e2e.otr.Sig.verify(pubA.deconstruct(), ma, sigma)) {
         // TODO(rcc): Log the error and/or warn the user.
         return;
       }
 
+      session.keymanager.storeRemoteKey(keyidA, gy);
       session.setAuthState(AUTHSTATE.NONE);
       session.setMsgState(constants.MSGSTATE.ENCRYPTED);
 
@@ -161,4 +165,6 @@ e2e.otr.message.Signature.process = function(session, data) {
       e2e.otr.assertState(false, 'Invalid auth state.');
   }
 };
+
+e2e.otr.message.handler.add(e2e.otr.message.Signature);
 });  // goog.scope

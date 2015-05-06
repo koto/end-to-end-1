@@ -21,9 +21,11 @@
 /** @suppress {extraProvide} */
 goog.provide('e2e.ext.LauncherTest');
 
+goog.require('e2e.async.Result');
 goog.require('e2e.ext.ExtensionLauncher');
 goog.require('e2e.ext.constants');
 goog.require('e2e.ext.testingstubs');
+goog.require('e2e.openpgp.ContextImpl');
 goog.require('goog.testing.MockControl');
 goog.require('goog.testing.PropertyReplacer');
 goog.require('goog.testing.asserts');
@@ -38,14 +40,15 @@ var mockControl = null;
 var mockmatchers = goog.testing.mockmatchers;
 var stubs = new goog.testing.PropertyReplacer();
 var fakeStorage;
-
+var context;
 
 function setUp() {
   fakeStorage = new goog.testing.storage.FakeMechanism();
   mockControl = new goog.testing.MockControl();
   e2e.ext.testingstubs.initStubs(stubs);
+  context = new e2e.openpgp.ContextImpl(fakeStorage);
 
-  launcher = new e2e.ext.ExtensionLauncher(fakeStorage);
+  launcher = new e2e.ext.ExtensionLauncher(context, fakeStorage);
   launcher.getPreferences().setWelcomePageEnabled(false);
   launcher.start();
 }
@@ -60,13 +63,13 @@ function tearDown() {
 
 function testBadPassphrase() {
   var storage = new goog.testing.storage.FakeMechanism();
-  var l1 = new e2e.ext.ExtensionLauncher(storage);
+  var l1 = new e2e.ext.ExtensionLauncher(launcher.getContext(), storage);
   l1.start('somesecret');
   // generate a key to ensure the keyring isn't empty.
   l1.getContext().generateKey(
       'ECDSA', 256, 'ECDH', 256, 'name', '', 'n@e.c', 253402243200);
   assertThrows('Wrong passphrase should throw exception.', function() {
-    var l2 = new e2e.ext.ExtensionLauncher(storage);
+    var l2 = new e2e.ext.ExtensionLauncher(l1.getContext(), storage);
     l2.start('fail');
   });
 }
@@ -74,9 +77,10 @@ function testBadPassphrase() {
 
 function testStart() {
   var passphrase = 'test';
-  stubs.set(launcher.pgpContext_, 'setKeyRingPassphrase',
-      mockControl.createFunctionMock('setKeyRingPassphrase'));
-  launcher.pgpContext_.setKeyRingPassphrase(passphrase);
+  stubs.set(launcher.pgpContext_, 'setKeyRingPassphrase', function(p) {
+    assertEquals(passphrase, p);
+    return e2e.async.Result.toResult(undefined);
+  });
 
   stubs.set(launcher.preferences_, 'initDefaults',
       mockControl.createFunctionMock('initDefaults'));

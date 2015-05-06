@@ -41,7 +41,7 @@ e2e_assert_dependencies() {
     lib/zlib.js \
     lib/closure-stylesheets/build/closure-stylesheets.jar \
     lib/closure-compiler/build/compiler.jar \
-    lib/chrome_extensions.js \
+    lib/closure-compiler/contrib/externs/chrome_extensions.js \
   )
   for var in "${files[@]}"
   do
@@ -81,7 +81,7 @@ e2e_assert_templates() {
     # If cmp is unavailable, just ignore the check, instead of exiting
     type cmp >/dev/null 2>&1 && (e2e_get_file_cksum '*.soy' | cmp "$BUILD_TPL_DIR/cksum" - >/dev/null 2>&1) || true
     if [ -f "$BUILD_TPL_DIR/cksum" -a $? -eq 0 ] ; then
-      echo "Using previous template build - ./do.sh clean if you with to rebuild the templates."
+      echo "Using previous template build. Run ./do.sh clean if you want to rebuild the templates."
     else
       echo "Template files changed since last build. Rebuilding..."
       e2e_build_templates
@@ -138,7 +138,6 @@ e2e_build_extension() {
     jscompile_e2e+=" --js='$var/**.js' --js='!$var/**_test.js'"
   done
   # compile javascript files
-  echo "Compiling JS files..."
   if [ "$1" == "debug" ]; then
     echo "Debug mode enabled"
     jscompile_e2e+=" --debug --formatting=PRETTY_PRINT"
@@ -188,7 +187,6 @@ e2e_build_app() {
     jscompile_e2e+=" --js='$var/**.js' --js='!$var/**_test.js'"
   done
   # compile javascript files
-  echo "Compiling JS files..."
   if [ "$1" == "debug" ]; then
     echo "Debug mode enabled"
     jscompile_e2e+=" --debug --formatting=PRETTY_PRINT"

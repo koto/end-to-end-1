@@ -41,7 +41,8 @@ var stubs = new goog.testing.PropertyReplacer();
 function setUp() {
   e2e.ext.testingstubs.initStubs(stubs);
 
-  chipHolder = new e2e.ext.ui.panels.ChipHolder(['1'], ['1', '2', '3']);
+  chipHolder = new e2e.ext.ui.panels.ChipHolder(['1'], ['1', '2', '3'],
+      goog.nullFunction);
   chipHolder.decorate(document.body);
 }
 
@@ -53,7 +54,8 @@ function tearDown() {
 
 
 function testRender() {
-  assertEquals('promptRecipientsPlaceholder1', document.body.textContent);
+  assertContains('promptRecipientsPlaceholder1', document.body.textContent);
+  assertContains('promptEncryptionPassphraseLink', document.body.textContent);
 }
 
 
@@ -86,21 +88,17 @@ function testRemoveChipOnBackspace() {
 
 function testAddChipOnTab() {
   chipHolder.shadowInputElem_.value = '2';
-  chipHolder.autoComplete_ = {
-    getSuggestion: function() {
-      return '2';
-    }
-  };
   var trappedEvent = false;
   var trappedDefaultAction = false;
-  chipHolder.handleKeyEvent_({
+  chipHolder.autoComplete_.getSelectionHandler().handleKeyEvent({
     keyCode: goog.events.KeyCodes.TAB,
     preventDefault: function() {
       trappedDefaultAction = true;
     },
     stopPropagation: function() {
       trappedEvent = true;
-    }
+    },
+    target: chipHolder.shadowInputElem_
   });
   assertEquals('1,2', chipHolder.getSelectedUids().join(','));
   assertTrue(trappedDefaultAction);
@@ -108,11 +106,39 @@ function testAddChipOnTab() {
 }
 
 
+function testHandleNewChipValue() {
+  var called = 0;
+  chipHolder.shadowInputElem_.value = '2';
+  stubs.replace(chipHolder, 'addAndMarkChip_', function(bad) {
+    called++;
+    assertFalse(bad);
+  });
+  chipHolder.autoComplete_.getSelectionHandler().handleKeyEvent({
+    keyCode: goog.events.KeyCodes.TAB,
+    preventDefault: goog.nullFunction,
+    stopPropagation: goog.nullFunction,
+    target: chipHolder.shadowInputElem_
+  });
+  chipHolder.shadowInputElem_.value = 'invalid';
+  stubs.replace(chipHolder, 'addAndMarkChip_', function(bad) {
+    called++;
+    assertTrue(bad);
+  });
+  chipHolder.autoComplete_.getSelectionHandler().handleKeyEvent({
+    keyCode: goog.events.KeyCodes.TAB,
+    preventDefault: goog.nullFunction,
+    stopPropagation: goog.nullFunction,
+    target: chipHolder.shadowInputElem_
+  });
+  assertEquals(2, called);
+}
+
+
 function testMarkChipBad() {
   chipHolder.shadowInputElem_.value = '2';
   chipHolder.autoComplete_ = {
-    getSuggestion: function() {
-      return '';
+    isOpen: function() {
+      return true;
     }
   };
   var trappedEvent = false;
@@ -135,8 +161,8 @@ function testMarkChipBad() {
 function testEmptyInputDoesNotMarkLastChipBad() {
   chipHolder.shadowInputElem_.value = '';
   chipHolder.autoComplete_ = {
-    getSuggestion: function() {
-      return '';
+    isOpen: function() {
+      return false;
     }
   };
   var trappedEvent = false;
@@ -158,8 +184,8 @@ function testEmptyInputDoesNotMarkLastChipBad() {
 function testPendingInputMarkChipBad() {
   chipHolder.shadowInputElem_.value = 'bad';
   chipHolder.autoComplete_ = {
-    getSuggestion: function() {
-      return '';
+    isOpen: function() {
+      return false;
     }
   };
   var trappedEvent = false;
@@ -182,6 +208,10 @@ function testLock() {
   chipHolder.lock();
   assertTrue(chipHolder.isLocked());
   assertTrue(chipHolder.getChildAt(0).isLocked());
+  assertTrue(goog.dom.classlist.contains
+      (chipHolder.getElementByClass(
+      constants.CssClass.PASSPHRASE_ENCRYPTION_LINK),
+      constants.CssClass.INVISIBLE));
   chipHolder.handleKeyEvent_({keyCode: goog.events.KeyCodes.BACKSPACE});
   assertEquals('1', chipHolder.getSelectedUids().join(','));
   chipHolder.addChip('2');

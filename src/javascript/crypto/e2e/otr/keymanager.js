@@ -67,7 +67,7 @@ e2e.otr.KeyManager.prototype.getKey = function(opt_keyid) {
   var id = opt_keyid || this.lastLocal_;
   var key = this.localKeys_[e2e.otr.intToNum(id)];
   e2e.otr.assertState(key, 'No key was found for the given keyid.');
-  return { keyid: id, key: key };
+  return { keyid: new Uint8Array(id), key: key };
 };
 
 
@@ -88,6 +88,7 @@ e2e.otr.KeyManager.prototype.storeKey = function(key) {
  */
 e2e.otr.KeyManager.prototype.storeRemoteKey = function(keyid, pubkey) {
   this.remoteKeys_[e2e.otr.intToNum(keyid)] = pubkey;
+  this.lastRemote_ = keyid;
 };
 
 
@@ -100,5 +101,5 @@ e2e.otr.KeyManager.prototype.getRemoteKey = function(opt_keyid) {
   var id = opt_keyid || this.lastRemote_;
   var key = this.remoteKeys_[e2e.otr.intToNum(id)];
   e2e.otr.assertState(key, 'No key was found for the given keyid.');
-  return { keyid: id, key: key };
+  return { keyid: new Uint8Array(id), key: key };
 };

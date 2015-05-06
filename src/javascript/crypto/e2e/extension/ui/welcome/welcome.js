@@ -20,6 +20,7 @@
 
 goog.provide('e2e.ext.ui.Welcome');
 
+goog.require('e2e.async.Result');
 goog.require('e2e.cipher.Algorithm');
 goog.require('e2e.ext.actions.Executor');
 goog.require('e2e.ext.constants');
@@ -199,25 +200,28 @@ ui.Welcome.prototype.generateKey_ =
   var anchorElem = this.genKeyForm_;
   var defaults = constants.KEY_DEFAULTS;
   utils.action.getContext(
-      /** @type {!function(!e2e.openpgp.ContextImpl)} */ (function(pgpCtx) {
-        if (pgpCtx.isKeyRingEncrypted()) {
-          window.alert(chrome.i18n.getMessage('settingsKeyringLockedError'));
-        }
+      function(/** !e2e.openpgp.ContextImpl */ pgpCtx) {
+        pgpCtx.isKeyRingEncrypted().addCallback(function(isEncrypted) {
+          if (isEncrypted) {
+            window.alert(chrome.i18n.getMessage('settingsKeyringLockedError'));
+          }
 
-        pgpCtx.generateKey(e2e.signer.Algorithm[defaults.keyAlgo],
-            defaults.keyLength, e2e.cipher.Algorithm[defaults.subkeyAlgo],
-            defaults.subkeyLength, name, comments, email, expDate).
-            addCallback(goog.bind(function(key) {
-              var dialog = new dialogs.Generic(
-                  chrome.i18n.getMessage('welcomeGenKeyConfirm'),
-                  this.hideKeyringSetup_,
-                  dialogs.InputType.NONE);
-              this.removeChild(this.genKeyForm_, false);
-              this.addChild(dialog, false);
-              dialog.decorate(this.genKeyForm_.getElement());
-              panel.reset();
-            }, this));
-      }), this.displayFailure_, this);
+          pgpCtx.generateKey(e2e.signer.Algorithm[defaults.keyAlgo],
+              defaults.keyLength, e2e.cipher.Algorithm[defaults.subkeyAlgo],
+              defaults.subkeyLength, name, comments, email, expDate).
+              addCallback(function(key) {
+                var dialog = new dialogs.Generic(
+                    chrome.i18n.getMessage('welcomeGenKeyConfirm'),
+                    this.hideKeyringSetup_,
+                    dialogs.InputType.NONE);
+                this.removeChild(this.genKeyForm_, false);
+                this.addChild(dialog, false);
+                dialog.decorate(this.genKeyForm_.getElement());
+                panel.reset();
+              }, this);
+        }, this);
+      }, this.displayFailure_, this);
+
   this.keyringMgmt_.refreshOptions(true);
 };
 
@@ -253,27 +257,28 @@ ui.Welcome.prototype.importKeyring_ = function(file) {
  */
 ui.Welcome.prototype.updateKeyringPassphrase_ = function(passphrase) {
   utils.action.getContext(
-      /** @type {!function(!e2e.openpgp.ContextImpl)} */ (function(pgpCtx) {
-        pgpCtx.changeKeyRingPassphrase(passphrase);
-
-        var dialog = new dialogs.Generic(
-            chrome.i18n.getMessage('keyMgmtChangePassphraseSuccessMsg'),
-            goog.bind(function() {
-              this.removeChild(dialog, false);
-              this.keyringMgmt_ = new ui.panels.KeyringMgmtMini(
-                  goog.nullFunction,
-                  goog.bind(this.importKeyring_, this),
-                  goog.bind(this.updateKeyringPassphrase_, this));
-              this.addChild(this.keyringMgmt_, false);
-              this.keyringMgmt_.decorate(dialog.getElement());
-              this.keyringMgmt_.setKeyringEncrypted(
-                  pgpCtx.isKeyRingEncrypted());
-            }, this),
-            dialogs.InputType.NONE);
-        this.removeChild(this.keyringMgmt_, false);
-        this.addChild(dialog, false);
-        dialog.decorate(this.keyringMgmt_.getElement());
-      }), this.displayFailure_, this);
+      function(/** !e2e.openpgp.ContextImpl */ pgpCtx) {
+        pgpCtx.changeKeyRingPassphrase(passphrase).addCallback(function() {
+          var dialog = new dialogs.Generic(
+              chrome.i18n.getMessage('keyMgmtChangePassphraseSuccessMsg'),
+              goog.bind(function() {
+                this.removeChild(dialog, false);
+                this.keyringMgmt_ = new ui.panels.KeyringMgmtMini(
+                    goog.nullFunction,
+                    goog.bind(this.importKeyring_, this),
+                    goog.bind(this.updateKeyringPassphrase_, this));
+                this.addChild(this.keyringMgmt_, false);
+                pgpCtx.isKeyRingEncrypted().addCallback(function(isEncrypted) {
+                  this.keyringMgmt_.decorate(dialog.getElement());
+                  this.keyringMgmt_.setKeyringEncrypted(isEncrypted);
+                }, this);
+              }, this),
+              dialogs.InputType.NONE);
+          this.removeChild(this.keyringMgmt_, false);
+          this.addChild(dialog, false);
+          dialog.decorate(this.keyringMgmt_.getElement());
+        }, this);
+      }, this.displayFailure_, this);
 };
 
 
@@ -281,17 +286,18 @@ ui.Welcome.prototype.updateKeyringPassphrase_ = function(passphrase) {
  * Renders the UI elements needed for requesting the passphrase of an individual
  * PGP key.
  * @param {string} uid The UID of the PGP key.
- * @param {!function(string)} callback The callback to invoke when the
- *     passphrase has been provided.
+ * @return {!e2e.async.Result<string>} A promise resolved with the user-provided
+ *     passphrase.
  * @private
  */
-ui.Welcome.prototype.renderPassphraseCallback_ = function(uid, callback) {
+ui.Welcome.prototype.renderPassphraseCallback_ = function(uid) {
+  var result = new e2e.async.Result();
   var popupElem = goog.dom.getElement(constants.ElementId.CALLBACK_DIALOG);
   var dialog = new dialogs.Generic(chrome.i18n.getMessage(
       'promptPassphraseCallbackMessage', uid),
       function(passphrase) {
         goog.dispose(dialog);
-        callback(/** @type {string} */ (passphrase));
+        result.callback(/** @type {string} */ (passphrase));
       },
       // Use a password field to ask for the passphrase.
       dialogs.InputType.SECURE_TEXT,
@@ -301,6 +307,7 @@ ui.Welcome.prototype.renderPassphraseCallback_ = function(uid, callback) {
 
   this.addChild(dialog, false);
   dialog.render(popupElem);
+  return result;
 };
 
 

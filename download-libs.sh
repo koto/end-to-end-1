@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 # // Copyright 2014 Google Inc. All rights reserved.
 # //
 # // Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,6 +17,9 @@
 #  *
 #  * @author koto@google.com (Krzysztof Kotowicz)
 #  */
+
+export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF8
+CLOSURE_LIB_COMMIT="35c9311042b95796d7b12f58cd2bec6086052f7e"
 
 type ant >/dev/null 2>&1 || {
   echo >&2 "Ant is required to build End-To-End dependencies."
@@ -39,7 +42,10 @@ cd lib
 
 # checkout closure library
 if [ ! -d closure-library/.git ]; then
-  git clone --depth 1 https://github.com/google/closure-library closure-library
+  git clone https://github.com/google/closure-library closure-library
+  cd closure-library
+  git checkout $CLOSURE_LIB_COMMIT
+  cd ..
 fi
 
 # checkout zlib.js
@@ -54,12 +60,13 @@ if [ ! -d closure-compiler/.git ]; then
   if [ -d closure-compiler ]; then # remove binary release directory
     rm -rf closure-compiler
   fi
-  git clone --depth 1 https://github.com/google/closure-compiler closure-compiler
+  git clone --branch maven-release-v20150315 --depth 1 https://github.com/google/closure-compiler closure-compiler
 fi
 
 # build closure compiler
 if [ ! -f closure-compiler/build/compiler.jar ]; then
   cd closure-compiler
+  ant clean
   ant jar
   cd ..
 fi
@@ -79,8 +86,8 @@ if [ ! -d closure-stylesheets ]; then
   cd ..
 fi
 
-if [ ! -f chrome_extensions.js ]; then
-  curl https://raw.githubusercontent.com/google/closure-compiler/master/contrib/externs/chrome_extensions.js -O
+if [ -f chrome_extensions.js ]; then
+  rm -f chrome_extensions.js
 fi
 
 # Temporary fix

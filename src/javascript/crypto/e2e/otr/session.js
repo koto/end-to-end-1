@@ -74,7 +74,7 @@ e2e.otr.Session = function(context, instanceTag, opt_policy) {
  * @param {!Uint8Array} serialized A serialized message.
  */
 e2e.otr.Session.prototype.processMessage = function(serialized) {
-  throw new Error('Not yet implemented.');
+  e2e.otr.message.handler.parse(this, serialized);
 };
 
 
@@ -105,10 +105,8 @@ e2e.otr.Session.prototype.getAuthState = function() { return this.authState_; };
  * @param {!e2e.otr.constants.AUTHSTATE} nextState The new auth state.
  */
 e2e.otr.Session.prototype.setAuthState = function(nextState) {
-  if (nextState) {
-    assert(this.isValidAuthStateTransition_(nextState));
-    this.authState_ = nextState;
-  }
+  assert(this.isValidAuthStateTransition_(nextState));
+  this.authState_ = nextState;
 };
 
 
@@ -231,13 +229,16 @@ e2e.otr.Session.prototype.display = function(data) {
 
 /**
  * Computes c, c', m1, m2, m1', m2' and session id from shared secret s.
+ * @param {?e2e.ByteArray=} opt_s The optional shared secret.
+ *     If none specified, uses stored secret if one exists.
  * @return {!{c: !e2e.ByteArray, cprime: !e2e.ByteArray, m1: !e2e.ByteArray,
  *     m2: !e2e.ByteArray, m1prime: !e2e.ByteArray, m2prime: !e2e.ByteArray,
  *     ssid: !e2e.ByteArray}}
  */
-e2e.otr.Session.prototype.deriveKeyValues = function() {
-  assert(this.authData.s);
-  var secbytes = new e2e.otr.Mpi(new Uint8Array(this.authData.s));
+e2e.otr.Session.prototype.deriveKeyValues = function(opt_s) {
+  var s = opt_s || this.authData.s;
+  assert(Boolean(s));
+  var secbytes = new e2e.otr.Mpi(new Uint8Array(s));
 
   /**
    * h2 function as defined in OTR spec.
@@ -246,7 +247,8 @@ e2e.otr.Session.prototype.deriveKeyValues = function() {
    *     (5+len) bytes consisting of the byte b followed by secbytes.
    */
   var h2 = function(b) {
-    return new e2e.hash.Sha256().hash([b].concat(secbytes.serialize()));
+    return new e2e.hash.Sha256().hash(
+        [b].concat(Array.apply([], secbytes.serialize())));
   };
 
   var h20x01 = h2(0x01);
@@ -278,5 +280,14 @@ e2e.otr.Session.prototype.getPublicKey = function() {
  */
 e2e.otr.Session.prototype.getSigner = function() {
   return this.context_.getSigner();
+};
+
+
+/**
+ * Initiates OTR AKE, sending DH_COMMIT and entering AUTHSTATE_AWAITING_DHKEY.
+ */
+e2e.otr.Session.prototype.initiateOtr = function() {
+    this.send(new e2e.otr.message.DhCommit(this));
+    this.setAuthState(constants.AUTHSTATE.AWAITING_DHKEY);
 };
 });  // goog.scope

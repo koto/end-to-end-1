@@ -94,8 +94,8 @@ promptPanels.EncryptSign.prototype.decorateInternal = function(elem) {
   goog.base(this, 'decorateInternal', elem);
   var content = this.getContent();
   var origin = content.origin;
-  var signInsertLabel = /^https:\/\/mail\.google\.com$/.test(origin) ?
-      chrome.i18n.getMessage('promptEncryptSignInsertIntoGmailLabel') :
+  var signInsertLabel = this.canSend_(origin) ?
+      chrome.i18n.getMessage('promptEncryptSignSendLabel') :
       chrome.i18n.getMessage('promptEncryptSignInsertLabel');
 
   soy.renderElement(elem, templates.renderEncrypt, {
@@ -103,8 +103,6 @@ promptPanels.EncryptSign.prototype.decorateInternal = function(elem) {
     canSaveDraft: content.canSaveDraft,
     signerCheckboxTitle: chrome.i18n.getMessage('promptSignMessageAs'),
     fromLabel: chrome.i18n.getMessage('promptFromLabel'),
-    passphraseEncryptionLinkTitle: chrome.i18n.getMessage(
-        'promptEncryptionPassphraseLink'),
     actionButtonTitle: chrome.i18n.getMessage(
         'promptEncryptSignActionLabel'),
     cancelButtonTitle: chrome.i18n.getMessage('actionCancelPgpAction'),
@@ -115,6 +113,18 @@ promptPanels.EncryptSign.prototype.decorateInternal = function(elem) {
     subjectLabel: chrome.i18n.getMessage('promptSubjectLabel'),
     origin: content.origin
   });
+};
+
+
+/**
+ * Checks if the web application in given origin supports sending the message to
+ * recipients.
+ * @param {string} origin The origin of the web application.
+ * @return {boolean} True if the message can be sent.
+ * @private
+ */
+promptPanels.EncryptSign.prototype.canSend_ = function(origin) {
+  return false;
 };
 
 
@@ -142,10 +152,6 @@ promptPanels.EncryptSign.prototype.enterDocument = function() {
   var origin = this.getContent().origin;
 
   this.populateUi_();
-
-  this.getHandler().listen(
-      goog.dom.getElement(constants.ElementId.PASSPHRASE_ENCRYPTION_LINK),
-      goog.events.EventType.CLICK, this.renderEncryptionPassphraseDialog_);
 
   this.getHandler().listen(
       this.getElementByClass(constants.CssClass.ACTION),
@@ -191,13 +197,15 @@ promptPanels.EncryptSign.prototype.renderEncryptionKeys_ = function() {
         }
       });
       this.chipHolder_ = new panels.ChipHolder(
-          intendedRecipients, allAvailableRecipients);
+          intendedRecipients, allAvailableRecipients,
+          goog.bind(this.renderEncryptionPassphraseDialog_, this));
       this.addChild(this.chipHolder_, false);
       this.chipHolder_.decorate(
           goog.dom.getElement(constants.ElementId.CHIP_HOLDER));
       resolve();
     }, this), goog.bind(function(error) {
-      this.chipHolder_ = new panels.ChipHolder([], []);
+      this.chipHolder_ = new panels.ChipHolder([], [],
+          goog.bind(this.renderEncryptionPassphraseDialog_, this));
       this.addChild(this.chipHolder_, false);
       this.chipHolder_.decorate(
           goog.dom.getElement(constants.ElementId.CHIP_HOLDER));
@@ -397,10 +405,6 @@ promptPanels.EncryptSign.prototype.encryptSign_ = function() {
     textArea.disabled = true;
     textArea.value = encrypted;
     this.chipHolder_.lock();
-    var passphraseEncryptionLink = goog.dom.getElement(
-        constants.ElementId.PASSPHRASE_ENCRYPTION_LINK);
-    goog.dom.classlist.add(
-        passphraseEncryptionLink, constants.CssClass.INVISIBLE);
     var signCheckbox = goog.dom.getElement(
         constants.ElementId.SIGN_MESSAGE_CHECK);
     signCheckbox.disabled = true;
@@ -424,8 +428,13 @@ promptPanels.EncryptSign.prototype.insertMessageIntoPage_ = function(origin) {
   var subject = goog.dom.getElement(constants.ElementId.SUBJECT) ?
       goog.dom.getElement(constants.ElementId.SUBJECT).value : undefined;
   var prompt = /** @type {e2e.ext.ui.Prompt} */ (this.getParent());
+  var shouldSend = false;
+  var content = this.getContent();
+  if (content && this.canSend_(content.origin)) {
+    shouldSend = true;
+  }
   prompt.getHelperProxy().updateSelectedContent(
-      textArea.value, recipients, origin, false,
+      textArea.value, recipients, origin, shouldSend,
       goog.partial(goog.dispose, this.getParent()),
       goog.bind(this.errorCallback_, this),
       subject);
@@ -491,8 +500,9 @@ promptPanels.EncryptSign.prototype.saveDraft_ = function(origin, evt) {
     var draft = e2e.openpgp.asciiArmor.markAsDraft(encrypted);
     // Inject the draft into website.
     var prompt = /** @type {e2e.ext.ui.Prompt} */ (this.getParent());
+    var shouldSend = false;
     prompt.getHelperProxy().updateSelectedContent(
-        draft, [], origin, true, goog.nullFunction,
+        draft, [], origin, shouldSend, goog.nullFunction,
         goog.bind(this.errorCallback_, this), subject);
   }, this), goog.bind(function(error) {
     if (error.messageId == 'promptNoEncryptionTarget') {

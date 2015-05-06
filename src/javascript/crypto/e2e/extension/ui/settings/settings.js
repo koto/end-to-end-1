@@ -20,6 +20,7 @@
 
 goog.provide('e2e.ext.ui.Settings');
 
+goog.require('e2e.async.Result');
 goog.require('e2e.cipher.Algorithm');
 goog.require('e2e.ext.actions.Executor');
 goog.require('e2e.ext.constants');
@@ -113,15 +114,17 @@ ui.Settings.prototype.decorateInternal = function(elem) {
     this.preferences_ = preferences;
     utils.action.getContext(function(pgpCtx) {
       this.pgpContext_ = pgpCtx;
-      if (!this.pgpContext_.hasPassphrase()) {
-        window.alert(chrome.i18n.getMessage('settingsKeyringLockedError'));
-        window.close();
-      } else {
-        // TODO(radi): Move to an E2E action.
-        this.pgpContext_.getAllKeys().
-            addCallback(this.renderTemplate_, this).
-            addErrback(this.displayFailure_, this);
-      }
+      this.pgpContext_.hasPassphrase().addCallback(function(hasPassphrase) {
+        if (!hasPassphrase) {
+          window.alert(chrome.i18n.getMessage('settingsKeyringLockedError'));
+          window.close();
+        } else {
+          // TODO(radi): Move to an E2E action.
+          this.pgpContext_.getAllKeys().
+              addCallback(this.renderTemplate_, this).
+              addErrback(this.displayFailure_, this);
+        }
+      }, this);
     }, this.displayFailure_, this);
   }, this.displayFailure_, this);
 };
@@ -158,9 +161,10 @@ ui.Settings.prototype.renderTemplate_ = function(pgpKeys) {
       goog.bind(this.renderNewKey_, this),
       goog.bind(this.exportKey_, this),
       goog.bind(this.removeKey_, this));
-  this.addChild(this.keyringMgmtPanel_, true);
-  this.keyringMgmtPanel_.setKeyringEncrypted(
-      this.pgpContext_.isKeyRingEncrypted());
+  this.pgpContext_.isKeyRingEncrypted().addCallback(function(isEncrypted) {
+    this.addChild(this.keyringMgmtPanel_, true);
+    this.keyringMgmtPanel_.setKeyringEncrypted(isEncrypted);
+  }, this);
 
   this.getHandler().listen(
       this.getElement(), goog.events.EventType.CLICK, this.clearFailure_);
@@ -207,8 +211,9 @@ ui.Settings.prototype.removeKey_ = function(keyUid) {
           prompt += '\n\nWARNING: This will delete some private keys!';
         }
         if (window.confirm(prompt)) {
-          this.pgpContext_.deleteKey(keyUid);
-          this.keyringMgmtPanel_.removeKey(keyUid);
+          this.pgpContext_.deleteKey(keyUid).addCallback(function() {
+            this.keyringMgmtPanel_.removeKey(keyUid);
+          }, this);
         }
       }, this)
       .addErrback(this.displayFailure_, this);
@@ -291,17 +296,18 @@ ui.Settings.prototype.importKeyring_ = function(file) {
  * Renders the UI elements needed for requesting the passphrase of an individual
  * PGP key.
  * @param {string} uid The UID of the PGP key.
- * @param {!function(string)} callback The callback to invoke when the
- *     passphrase has been provided.
+ * @return {!e2e.async.Result<string>} A promise resolved with the user-provided
+ *     passphrase.
  * @private
  */
-ui.Settings.prototype.renderPassphraseCallback_ = function(uid, callback) {
+ui.Settings.prototype.renderPassphraseCallback_ = function(uid) {
+  var result = new e2e.async.Result();
   var popupElem = goog.dom.getElement(constants.ElementId.CALLBACK_DIALOG);
   var dialog = new dialogs.Generic(chrome.i18n.getMessage(
       'promptPassphraseCallbackMessage', uid),
       function(passphrase) {
         goog.dispose(dialog);
-        callback(/** @type {string} */ (passphrase));
+        result.callback(/** @type {string} */ (passphrase));
       },
       // Use a password field to ask for the passphrase.
       dialogs.InputType.SECURE_TEXT,
@@ -311,6 +317,7 @@ ui.Settings.prototype.renderPassphraseCallback_ = function(uid, callback) {
 
   this.addChild(dialog, false);
   dialog.render(popupElem);
+  return result;
 };
 
 
@@ -319,20 +326,23 @@ ui.Settings.prototype.renderPassphraseCallback_ = function(uid, callback) {
  * @private
  */
 ui.Settings.prototype.exportKeyring_ = function() {
-  var filename = (this.pgpContext_.isKeyRingEncrypted() ? '' : 'UNENCRYPTED-') +
-      'keyring-private.asc';
-  this.pgpContext_.exportKeyring(true).addCallback(function(armoredKey) {
-    if (typeof armoredKey != 'string') {
-      armoredKey = goog.crypt.byteArrayToString(armoredKey);
-    }
-    utils.writeToFile(
-        armoredKey, function(fileUrl) {
-          var anchor = document.createElement('a');
-          anchor.download = filename;
-          anchor.href = fileUrl;
-          anchor.click();
-        });
-  }, this).addErrback(this.displayFailure_, this);
+  this.pgpContext_.isKeyRingEncrypted().addCallback(/** @this ui.Settings */ (
+      function(isEncrypted) {
+        var filename = (isEncrypted ? '' : 'UNENCRYPTED-') +
+            'keyring-private.asc';
+        this.pgpContext_.exportKeyring(true).addCallback(function(armoredKey) {
+          if (typeof armoredKey != 'string') {
+            armoredKey = goog.crypt.byteArrayToString(armoredKey);
+          }
+          utils.writeToFile(
+          armoredKey, function(fileUrl) {
+            var anchor = document.createElement('a');
+            anchor.download = filename;
+            anchor.href = fileUrl;
+            anchor.click();
+          });
+        }, this).addErrback(this.displayFailure_, this);
+      }), this);
 };
 
 
@@ -342,12 +352,14 @@ ui.Settings.prototype.exportKeyring_ = function() {
  * @private
  */
 ui.Settings.prototype.updateKeyringPassphrase_ = function(passphrase) {
-  this.pgpContext_.changeKeyRingPassphrase(passphrase);
-  utils.showNotification(
-      chrome.i18n.getMessage('keyMgmtChangePassphraseSuccessMsg'),
-      goog.nullFunction);
-  this.keyringMgmtPanel_.setKeyringEncrypted(
-      this.pgpContext_.isKeyRingEncrypted());
+  this.pgpContext_.changeKeyRingPassphrase(passphrase).addCallback(
+      /** @this ui.Settings */ (function() {
+    utils.showNotification(
+        chrome.i18n.getMessage('keyMgmtChangePassphraseSuccessMsg'),
+        goog.nullFunction);
+    this.pgpContext_.isKeyRingEncrypted().addCallback(
+        this.keyringMgmtPanel_.setKeyringEncrypted, this.keyringMgmtPanel_);
+  }), this);
 };
 
 
