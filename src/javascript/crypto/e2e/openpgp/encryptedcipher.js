@@ -27,7 +27,6 @@ goog.provide('e2e.openpgp.EncryptedCipher.LockedKeyError');
 
 goog.require('e2e');
 goog.require('e2e.AlgorithmImpl');
-goog.require('e2e.algorithm.KeyLocations');
 goog.require('e2e.async.Result');
 goog.require('e2e.cipher.Algorithm');
 goog.require('e2e.cipher.AsymmetricCipher');
@@ -421,8 +420,7 @@ e2e.openpgp.EncryptedCipher.prototype.unlockKey_ = function(keyBytes) {
           'Unknown cipher algorithm', this.cipher_.algorithm);
       throw new e2e.openpgp.error.InvalidArgumentsError('Unknown algorithm');
   }
-  // TODO(user): Figure out what loc this is once multiple locs are supported.
-  keyData.loc = e2e.algorithm.KeyLocations.JAVASCRIPT;
+  // TODO(user): Figure out whether loc needs to be set to JS in some case here.
   this.cipher_.setKey(keyData);
   this.locked_ = false;
   this.keyBytes_ = keyBytes;
@@ -432,6 +430,18 @@ e2e.openpgp.EncryptedCipher.prototype.unlockKey_ = function(keyBytes) {
 /** @inheritDoc */
 e2e.openpgp.EncryptedCipher.prototype.getKey = function() {
   return this.cipher_.getKey();
+};
+
+
+/** @inheritDoc */
+e2e.openpgp.EncryptedCipher.prototype.getWebCryptoKey = function() {
+  return this.cipher_.getWebCryptoKey();
+};
+
+
+/** @inheritDoc */
+e2e.openpgp.EncryptedCipher.prototype.setWebCryptoKey = function(webCryptoKey) {
+  return this.cipher_.setWebCryptoKey(webCryptoKey);
 };
 
 
@@ -482,6 +492,27 @@ e2e.openpgp.EncryptedCipher.prototype.setHash = function(hash) {
  */
 e2e.openpgp.EncryptedCipher.prototype.isLocked = function() {
   return Boolean(this.locked_);
+};
+
+
+/**
+ * Returns the wrapped cipher, throwing error if the cipher is locked.
+ * @return {e2e.cipher.Cipher|e2e.signer.Signer} The cipher.
+ */
+e2e.openpgp.EncryptedCipher.prototype.getWrappedCipher = function() {
+  if (this.locked_) {
+    throw new e2e.openpgp.EncryptedCipher.LockedKeyError(this);
+  }
+  return this.cipher_;
+};
+
+
+/**
+ * Returns the algorithm used by the signature hash function.
+ * @return {e2e.hash.Algorithm}
+ */
+e2e.openpgp.EncryptedCipher.prototype.getHashAlgorithm = function() {
+  return this.cipher_.getHash().algorithm;
 };
 
 

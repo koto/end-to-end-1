@@ -186,8 +186,13 @@ function testLockStaticPassphrase() {
     return lockable.get(key);
   }, fail).then(function(v) {
     assertEquals(value, v);
+    // Cannot setPassphrase on a locked storage.
+    lockable.lock();
+    return lockable.setPassphrase('new-pw');
+  }, fail).then(fail, function(err) {
+    assertTrue(err instanceof Error);
     asyncTestCase.continueTesting();
-  }, fail);
+  });
 }
 
 function testPassphrases() {
@@ -231,10 +236,10 @@ function testPassphrases() {
   });
 };
 
-function testMulti() {
+function testMultiple() {
   var lockable = new e2e.openpgp.LockableStorage(storage);
   asyncTestCase.waitForAsync('Waiting for async action');
-  lockable.setMulti({
+  lockable.setMultiple({
     k1: 'v1',
     k2: 'v2',
     k3: 'v3'
@@ -242,7 +247,7 @@ function testMulti() {
     return lockable.get('k2');
   }, fail).then(function(v) {
     assertEquals('v2', v);
-    return lockable.removeMulti(['k1', 'k2']);
+    return lockable.removeMultiple(['k1', 'k2']);
   }, fail).then(function() {
     return lockable.get('k1');
   }, fail).then(function(v) {
@@ -253,6 +258,11 @@ function testMulti() {
     return lockable.get('k3');
   }, fail).then(function(v) {
     assertEquals('v3', v);
+    return lockable.getMultiple(['k1', 'k2', 'k3']);
+  }, fail).then(function(obj) {
+    assertEquals(undefined, obj.k1);
+    assertEquals(undefined, obj.k2);
+    assertEquals('v3', obj.k3);
     asyncTestCase.continueTesting();
   }, fail);
 

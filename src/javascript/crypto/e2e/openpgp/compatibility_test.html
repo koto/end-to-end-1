@@ -16,6 +16,260 @@
 <title>Compatibility Tests</title>
 <script src="../../../../../javascript/closure/base.js"></script>
 <script src="test_js_deps-runfiles.js"></script>
+<!--
+  Tests custom openkeychain key from Issue 337.
+    Taken from https://github.com/google/end-to-end/issues/337#issuecomment-149080863
+-->
+<textarea id="InboundOpenKeyChainCustomKey_Issue337">
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+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
+Ng8VKt8ipDg01Gt52/kKFhbo2r+p9u85vZd5pzs1Kuz0EX46nnPlWzzsGPbUbUw0
+5b7GcBFOkDMys3TS5RYNNdh8IWvP6GTSJ9m5Mm8CbBpC+QbJaVNPjbusjHSz9/R/
+RI+LCb9cQh/8qyRcHxLSUrfqCb35wS1G5jicmp3ZxrJBqEB83nNNsGYZBnnprpr6
+Sw7cyfjrf/BBfUNkAz+T5o3tfRsHoOARC4PIB5GipMqkVlRVANhU29Jm4uwUYuY0
+sianKoKGKbfiJHN7ADPrlxSfTD4jCOv65ZTjfnWgQbHhwyFvF+mWBo9O26TTleXf
+iYzX38vRwHZuSF3uRcxRs5t8c1lpmXHdy55p1TVT8G/mtTRPL4XKLXnMaWPceMrr
+SCSkO9xWNvEfLb/jE6BHxNzluTJQmmm3nmE5iQIfBBgBCgAJBYJWJFmoApsMAAoJ
+EHnM2Y0mYwe4npEP/iluVkQfyfKKZH5cVTrwGGmI+QRW73OLLQksM4Fa0g74m0MV
+PAYzp08mfsX9h+mZdYRULM+A40sxF1tMvNxgtcIXLgIguw6o2LJ5pRphMuQh4Xsl
+ODlJKgM+js14HqfzTkR0yhB9rNETIfuIZMrIzvjfsJYhk9j4cuHyBAOHngKI/qZt
+uYIr4/eqnVKCtGw9HcSnFG6qBmO22ezYbfDKlt18Y1uItp1AMqyvNUtLKhzTq9QR
+Lt20CWzlNwKEIjZNW/i24ZFev+2HCDTYA0x7RSU5TTSoPgDrYkFKYoqM2J0i6pBz
+0X8fXclARz6pLsIAB89HSQPtyshNiqSWJY20Z+id3XPWiuIi1LFWSut3x8mh6lzA
+n9gcuX5ufODfSAkVYA1oGomIyiKB0bKLp/H37ymidMmlirxVc/JtSOcHC+sP4PzU
+ydxLY16HE96Cp2o0LIKAzEuZrLHXVm6HfLNKACfhZg1jabOt0eBXRWKDZTjab2rD
+2gnPhQQKXah9EQavjEf4vpr3rFhiXh/D64GemA8YLzK+cWJXv1gzq8WV7tiuULpi
+G2O6UbHvMrl4x/w39k7iAXUoYInG/f8dxaJbM5CijCJ+xmlMq6Q5sPbqcS3FBhpD
+ycYIkz3vtXpL5DQQZGAUCtRxrUIZaGrDWwb0m88lskCKxk8Hj+ustjIRbNqauQGi
+BFYkWagRBADWI4Z4JEEDURlDA9kCmwgiOKmVHUGZfopy+5Nfg+Fgc3WZyW/7O6Iw
+x09RPitluPgH4KJojCM3Torlvp2PtoQ01YvYvP9zjT7A3pg/6wVcpfG3HQ58biFV
+ZSUuT/c8AEh7FMt9s6lBeFz4Hj5u+amGSWMgNDQErbXmvNHOybf2rwCg2yrNXL5Z
+fIxYEDLTJIMsEyaFpK8D/1p/ekodN1CTXICXZVzxwUlGh/SJm+OC1j5J3LfH3tc2
+qR4CPgwuj13AYjLJFKcgGOgAOgir/NIabUHMbQfOTY4g+MVRzVVLsBr2HEiEIVhZ
+Mc8lb4UC5KHEvkGPlDo2pRUNECwDT5Sc6F1VZecCPZHYhCUyAx+iKE5qhYkgzhB8
+A/0VdfU2T5/y7ObBy7o2NqY3CClxJilITR0lz/F5hUorTXcKv4FKv4D566GYHmtf
+zxc015OG+qDTieoYCxlpw7L3T3ueTsjEFEYy0nkQSUYmYb38ffcqCUOh8eM0yrcq
+rxHr/vc7FoVE2StA6JDr+KhcCF34OvNQ7mijV+v1fPAR/4kCZwQYAQoACQWCViRZ
+qAKbAgBSCRB5zNmNJmMHuEegBBkRCgAGBQJWJFmoAAoJEE94nOO1jjoQFqQAoIH+
+uHPoV72Fox2LHyIwKG0O+y7vAJ92Wjy9wypzGRN4Diw8CmAqwZ6ImgTuD/41rVTX
+C0S43MWSjxNtPhVHYqGUpbz2r5F+tq6GAGTbbOK+IT4Cer5JqlFTfBLc69tpSv7d
+P6etutB0ar/lU6/PTVaF99bUk2Kn6V5ldMpODGIVCJsantuvSG5ZgnJcjwqckyJv
+BVqvM5ozgpU3cyb+NM+MJle8mnrjzQBUrB15z9fIpm8a51FNxdVvIag/F3rsN6Xe
+eeE9htw5LeJnWPWQYFWaFxIzqxdMwpby1CwoUPCau7mj74UZLKvL34HzeQHtbwqJ
+2wWmu3lVPwEvDvQJod4MnrubPo1Su4rfydYnhooLn6uq0F99eFFh2SsEDYMuzQv4
+tpgUp2Hvx7QzY/BcLuGXCH5BlWg9lqWfraeFjtuRMVPjVQd/dZADu/a5L14OI38v
+jkHrMr93e20rAyhK4pg9BUph0Tzze/csRbnAg+O8z3LWCIPh7I2AZLhUe/k4CN7Q
+9b7CuwnW9CVF/F9s+UA/TeJLf6JMeQsvTLmzLi8IthTJvH8kM0dhTeLJbqdlFi2S
+PuCJFlVnSdHxQlzWXkO1eriYZrH+psbR5koWB4TC0wbWiccbkfPviRQYQSHIyFjl
+ZxpKGWhPTMV1fSkTGOQ7QhYYRMk55Fm+BGnXzs7NGMVwNXodb5GeJ1TT4fYvFTh7
+x2KN8Potx8X3+OsMB/3GjyIKNajHUPzw5lWf8riTBFYkWagTBSuBBAAjBCMEAdNT
+Xjhcio6yV6NzOQSnpUIXv1P1bjFfJ4QlCJlqluhyqTBMKBXE8GITVTuB9qNYVc4l
+LtbcDamtQQ/Oen2s9TTuAPqRj6vIRTAfVH2emWwXUbcHBQ087KNwvV+QOh6KboGo
+N672oFtq3FSCMZ0J1DPqlp+xNbLUSakI3EtzZ/M9WZibiQLCBBgBCgAJBYJWJFmo
+ApsiAK0JEHnM2Y0mYwe4oqAEGRMKAAYFAlYkWagACgkQ3j5ovXPiqHhSHQIJATdf
+e0F1GsEKeLdWi7y1rufiFbC2tL396Yu7/46EC99451MqiNY0RJEr/SoFA/bz8mQC
+OrwVtFY950FcqYwF7KUIAgj1cPbteXNKmi596EwGm/6kKWKogG/QCA4o1T2A2Tmr
+WbJGAxTESBG9CVwYaqG5vPWeV3cCNjOx7TlCnc3IyJwchQTrD/4vS9Uic/UINksd
+jMv63iylfJz4nK6jqs9QLEHKV3VekQQhppvXlBbSk6EH7nMmyzzgMF84kV2YAC3F
+Ra7X+LJ1V7rXFoU/JbhemmZCnjBlK3OUGua0MEsBxbJtFwG7GMrTKpbBboKvJYxB
+iUk6u3yJhvL2LfT/oU3flq5jKvkD/T9iyCOdMK9NoEbjvxm0i1en6r+43P9APdva
+MdG7WEiqL2eC6Hi78x1JaUA8+Ig2iYq3Rys2SaFq9+lpWSuncMpFr4uIkw7EcJGT
+J+vYkLJw+WVFEeMdYIa7M3mitBkvrbNlewZ4+g3ZGQ0CsxuTVVLe6DeXcWTrDdEn
+ddmoE0DRAUvbhGF/NsAHJJMQ8Ytsby2sFdWiJ01Pm2zbsLN/PJIDFGr611XuX3yi
+flxJ5xmBtpNmtpQtqvepmVdyk5n3nNQw29kzMLPwLI+xobLH9KX2mpIKx/xcaEsU
+O52m3+OvD06eRjFuGbqCujoMILV9CBPqyiQH6trEwGTJNwKzYK7lpspKMYll4zgr
+rrvOLNlqV1Wi3NXzSzabkY6JISyM/Ccn627IY8Q/CX2zElJR4UEow/YalYitCPaE
+qHusFkaSAMRtCigtArLeoA+Erl0ENKo/xA/aWorCcO94dATyBrmYy72i8G9nrdKQ
+XvMq1wsGxaRLhpispydgxRjuX4SKkbiXBFYkWagSBSuBBAAjBCMEAUGBaQuzUpNs
+K32UrODHxQkI6WxCA4oQltl6SvT4sE27pYKk9ZZwrPu9PUKP6pehb8dWvkwuzVQm
+lNGUx7cTDtP8ADl2FLRUPQEjlfcat1KYUnNhJJcTBe7NFnrW/yQHQNMz+7qZf23f
+dBgPzdznntSFwfSyMXAmmo3ylKQ5X2H+WVs6AwEIB4kCHwQYAQoACQWCViRZqAKb
+DAAKCRB5zNmNJmMHuHLWEACSYEhDkBwtamE/Y0ppTxPXdXNXcSdhCvL/JWyildGT
+BUtDDzDrVZH4lPdhKZB7fmEBEOsfk6nQGGjXHa1hBUQhc5uOLt78SeTXQUjHT00E
+tdPiGDCEmqiaFreV4LqMQz3qN4uDjctZCJtnN/mIN28JBau3KfX0rTTmb/8tuMBt
+F/rpeE7tHMcHCPk7pZQ3OVejBpXGXpl98dhu1u9Sz95i3zHCgRIgyeEIisC4N0uE
+6gbu85wLEBnlZjHzaYaRVUHmyUjB2WEHUWhFzlfiO0c/tkG8TSuU79IbGX+qokRp
+mQ+fApqGR1NM/Cpx95nKTE2b3wZhLGNSAEpcYjP7cTgjOMYcXKHLyDHPRbHfNInB
+rtVVlBqnG9zWMl1SOr8qbVZ0Hcjvq3/qIIOvhtgfpJehHRGhGA5LCQjibDEUE7UV
+VUyK0dxghfnhx1YMfklZfV8YlsSrFiEeV7PIyI7po6AP0wC5/9zH1Yt/O3znsHoq
+0JjK++3vQ1r2DgkOdqWFiG8cpu+H3jJvHX64J6Z879EydQ05h8F3Jm89Max2nVdT
+zFVc2E3FnL5qfhly+9YXFfW2PMnAlSLtokmvVTK4XwCMBZ8JFtD3alxbXKnskprI
+SaVZsFW/D+l4RA4zVZz5WWIL6GaTy0q+jnTHcNUMsJQkGdgsB6eEPB6JW+7iF0Cf
+6g==
+=Jp2a
+-----END PGP PUBLIC KEY BLOCK-----
+</textarea>
 <textarea id="InboundRsaEncryptOpenpgpjs0_7_2">
 -----BEGIN PGP MESSAGE-----
 Version: OpenPGP.js v0.7.2
@@ -748,6 +1002,165 @@ UOmPAQP8h8OVluq3C7U=
 -----END PGP SIGNATURE-----
 </textarea>
 <!--
+  Tests for v3 signature packet parsing.
+    Message taken from https://securesuisse.ch/transparency/
+    Key from https://securesuisse.ch/contact-us/
+  New: Signature Packet(tag 2)(533 bytes)
+    Ver 3 - old
+    Hash material(5 bytes):
+      Sig type - Signature of a canonical text document(0x01).
+      Creation time - Tue Dec 29 10:22:53 CET 2015
+    Key ID - 0x2D4E21BD4D6F1800
+    Pub alg - RSA Encrypt or Sign(pub 1)
+    Hash alg - SHA512(hash 10)
+    Hash left 2 bytes - 76 a6
+    RSA m^d mod n(4096 bits) - ...
+      -> PKCS-1
+-->
+<textarea id="KeyEncryptionDesktop10_3_2">
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: Encryption Desktop 10.3.2 (Build 15413)
+
+mQINBFQo7PsBEADbtxGwpmXzAXpEy+6gFawoQYsPf2R1R7kdQ59t2qoCoTqsAR8L
+gX5V9Pq3rNUKkCCS4IBMLXmlIGYFNW8DovdDWuhBMICn87uBjdJoyil8ZPY4SF15
+BnIxIlzgDC1ATtZpJ2JHZNAK48mx0wU/XuLbQ91aMty555xuT1I4HIdD846Ds8nC
+gF5ExcW7VuyAzYH3rW2A4JZI1UadKr4Gz9+dCcI+vvovkudUir31NXTGJYAREg1Z
+BrZEPOHZFtleBT5JTt4HAnvIHc0SgUBQYvw6J4GOaYZosls4oqEubEo4MBxXpxpH
+g0+OriRBxx4JkH1tw/U5+/wd335srmcrPr0rwVTnaxNoszk32rzwWDI7TtkxCCk5
+kkq7Qakm1Ceusxj1Axt6BxS4YiDpJnTfJiJc4SWDSS1MsnL4lwKKlBrPOp3kn8Mk
+YZw8USFSlM6cNLXad1MgA7Vx3I/8YvJTQnAAWpO5s376YdZ04Evj1uzvrY/7HUZP
+o9Za1MITTC6EStk2CYWLLN3c9lL+AbzrrfuIo+fmebbQFp4oiNvxyrlWJ836C//B
+l9seGEuQweLzx2JTqMcoLcOrfE8mN5m4T+3Pl4PxXKFv2xRl5UJNdqXm1VtNNFoP
+2x4lbRC1wfBjEyh/987yTIWvoewbd6+DZWKcRCQQ9cgWktkhvNCC7prEKQARAQAB
+tCdTZWN1cmVTdWlzc2UgPHNlY3VyaXRlQHNlY3VyZXN1aXNzZS5jaD6JAnAEEAEC
+AFoFAlQo7PsFCQPGW4AwFIAAAAAAIAAHcHJlZmVycmVkLWVtYWlsLWVuY29kaW5n
+QHBncC5jb21wZ3BtaW1lAgsKAhkBBRsDAAAABRYCAwEABR4BAAAABBUKCAkACgkQ
+LU4hvU1vGACGlw/+Lkgl++oDMQ2qroQhaC3nh606iUIJV+QeLYmAgZVUmh64NZr7
+PGySjmjVGk2hYZT+HVDB9M8KGrwwJ5Nu1/Bprkt7iXm8uOd7tK1fLyqXz1RKKXGU
+t2r/2MhLCGcDPJpHW+j/1DQqOR3M0Lqdd62RRjVnIqispndb0CMf0NiSE7oNiaQg
+NOTJMOG24kK7tlyynTQBK+jEm0ajwCSsDCvQ11r234yYWlV7Nz6LQBaQEqQZdTnu
+JIueA1qsCRPiXw4Yttu9faxUw6wlunnIqnpF5rU9Hq0H1rgqE6yFC82mX4Xi7QyR
+mnuw/0R0DwX5nEIJx1W5Nj/SAI6lYppSGJjpzJRy10j7Q866hfSubKUq6hDj2kD+
+5WSyzdDkK3KlhJL5Z1M309YvQ8Bfi4XmbjRc6SjftHQVMJLHPbp4seMgZ4ixk7y6
+WMm7tJbcIUQc9oEcEVaykuJk/HRshFkcTAHnUBBRFXnfgHI5c+SGnGq+O3cFaOnh
+0QnUqkTygAhXWhGM60KFhKDQfGxw+8WfbfvUx3xfs5zKR9GIDO1oJ7qR3Gk8P4D5
+A5FyXair7K595q58XGgHuS96Ltoz2Swk5g2tjNR7DgXgpDHIJeHGiCn7RhabNR2i
+lcoWhnPFr3RxVF6VxLUCP9GItFxN5l9IkwmA3cfh4d8LU8kzzbXPvMLDSl65Ag0E
+VCjs/QEQALyHt4Yl0LDVoUh7mL8IGwXEM8hkx6w5S0cikj9NbXEhPg53AYkF40gF
+WfGw59UfB7Wl/DwcHumOaeB5PdL/gmejW0fp0lM3+/qtR3Gfp4iAzwHLrNi9zBX+
+7bOl6+vQmB2OJLzh7DTVx+yQjnGH4otO77YAgtk2Pxys+QvTIA338sjCxerIicbk
+CfcPPFSJ6whDcfDLuZx8+ryAp151GoJw8Jbm7TwgxkL1g3y0o4cNkrylcHKZQnME
+3unbKZ0NcvPrAOIhkpGtCzl6Cn7O5VoCMDgt3KDtSgxAeh/45EVi7jvemOh5lcOw
+2qq0HK+M0YHkRWADr7MGecLQWjoU+DbZSS0Owu6FaYoSIcme3rOb9BpF28uBR6OT
+kj3saSMy0DvJMCWVCH+sksaQfl87/G5RvQNdpQkSxA5tQKLjxM4ZpI5Ljbcq10Zz
+BB69hdV1QHTE8I2sUgCaOwQbZoF0oWbbPhv3nfCoXbRIe5/lFyYeidsJxH6Ow2/d
+JO3BfgLXNqUGkk67nXq2+YsL7E0E2cttlWnPs5BcE2x0DvDXffaY/oBRxsoDEM89
+HdsZsXJL2UJjkgUeLrahly1jklFT/4M5ZCtKNnOU65XYvP0HDvRJo1Cgy+khgvfh
+whbav9ymbGkypht/LcimQrAVudDbOi8Z4ODdQGjWtGpUN/8u/mM1ABEBAAGJBEcE
+GAECAjEFAlQo7P4FCQPGW4AFGwwAAADBXSAEGQEIAAYFAlQo7P0ACgkQi9IIPgI0
+pF73Vw/+Lyc2A9JefqkX54CmiSRvqh4Nr7IToyYPXUFIAi6lH4nT6I2tyCuTNkWq
+xd1pkxzc3qyf+RBVMXZiJVjwWyH2JsWnuvhbKx89CO3vcuC8uBDAiOoWJ3y8BE+Z
+84+RnPcxaN2uXc1bmAU/XTv/23LyTaOpeu+wF0pE3EhiGqqrsUj+GWtl2/eGgSEm
+CT2MyE3HZ48rOqMIu2n/EhP1KeBHDf/BuCQQKmsfJEuozT/t6cP1mVYWm1G4Q0/v
+vDRpb2q3cOGpDKALmX+sZ5mnBXu7vpZtiNkNSoCuXdc+tLFgxYae/N3VIofTEA4f
+rv70L4cbIyuRavyCj4KFmevVY8f9CRI9fqtfLSXRGTO3H1TiBa+zRgmzj1PbNk4r
+ZdJ5LOsaTHdP4pz/1VndL8Fw/l+7PaF+j3UVYGcVEIErfRuZzLcrBelZVZwMgJ7u
+Xcp6TAI4qQlkBNPdgS+H9vZ3M9dlCkLmykzBmvIk4YabdnuB2gCUDOcDlte6/KYD
+iRoKd7ajzG7y5sYwvASRw9akRutZWAnvr/BlXietgutW5tS8DR6inWldXWwRX7w6
+qFNQ7pUXhSxvfo3Wm/c2iddXqkpZg5ag2t08Po51jKoYkG+NNWagwYWuK6BIhADi
+9iNs/fLoS4oCNPt2BPAsPulf0ClnU1xnvldiBiJq3D+UB+v4iUUACgkQLU4hvU1v
+GACraQ//cfoi7UQkHhwRfOSgfIA7BjArG1zj1Wt4YSvvc2rCRguF1ngB+F024b7O
+uMYOXepdkxuMWlyYgcKH4AGJAd1rwwTHFe6JOkXPyFLVgKzugqXysYWGGFYxc6Ri
+LSXQVMmSDTzJa4oo3Vxj+jKmmi2JeChTqRCDdRuqH4RLV7rem0AbblHTYHnpGW60
+vhpLl5M4e9pqLRPzGoSBsIcipT1jq7yix7byYFQYOgH1vgdsacr/4Y1zctrV9g3P
+LM0XCOJGijFkKHsG8a9VokDprhEE+G0G6c6fgU1ugCmMM9UvURnedTb+ltEyqsfE
+aavWqy1AFpgjkET4yTfhrkWU7BLd9z+tj3C1AmnNdIu5Y/LyHaep1tzqAIg/if0j
+lKB/tHDOzD/nmHqhZI7VWV9stBbyouCRg5LS6WY2jUPV+JKyD2rrKPTFAhCiSW97
+aNjVc28lxIXijcdODQftZ8/bg8GD8BoBBPjzbFF5W37D3tjRwwM77PG41DSdq40i
+tp9Up5hJSPPdD5DOoVtDS8mSbbCo+0k0zXTYLq+0qK2IzofXDcUXVtjFE0J1hSSD
+9tBqijryPj2Dhj/Abd+911vgMWKi4GguTcIqvS/MgdqDlyhR8ZLjAn8lj3AKvoEn
+XcOJmq16DAZs8m2r0pwPsJlxoPvsAf8a4AWdiMJ9/1h7uPX3lC4=
+=LulV
+-----END PGP PUBLIC KEY BLOCK-----
+</textarea>
+<textarea id="InboundClearSignEncryptionDesktop10_3_2">
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+We have received a total of:
+
+0 legal requests to access customer data
+0 requests were granted
+0 requests were denied
+
+Should these numbers change we&#8217;ll update this page accordingly. This
+information was updated on December 29, 2015.
+
+Brussels New Year's Eve attack plot foiled as police arrest two suspects -
+December 29, 2015 - International Business Times
+http://www.ibtimes.co.uk/brussels-new-years-eve-attack-plot-foiled-police-a
+rrest-two-suspects-1535184
+
+
+-----BEGIN PGP SIGNATURE-----
+Version: Encryption Desktop 10.3.2 (Build 21165)
+Charset: utf-8
+
+wsFVAwUBVoJQ7S1OIb1NbxgAAQp2phAAsOQV/fL2hmn0Wgld96byKfMJU80llLck
+9Hxo+AEVvstpKVwTqnwf4085G6r9jMMxnmZY0Zz9Pl9nqixkECUq9cVqAsZZDZcd
+aHGd38oKL0PROuQwD893UElG8DY2HCwUCQgwCWVYdPfyv2KJG4hxCIaQA4X1u3vo
+EWhouBT0lHjw0DthVFJy3hdNw1cDNlvGEf7zSlkx+LGEAfZgWHw0lTwPw/xZQr5L
+DJhpb2APaim1ZmoJd9+Pn1oCJhWgptpRLSOYBoeyTpUK0pKKttyh+K2s/bQvsk9b
+ZEVq74tB2KJOLx+PdiONFK53pMyZ3qfG+CEGu0qh88Au6L0U2yOhRJW41sG9zeYq
+ZiO25EWRMElhrP1kZzR44rRR1db3xLnY8rT6MQe3G2KW04dAy+elSDeu45WATo0/
+VqCVNEn0cN/n0tjUVF8gM423YJhdK8Slh5EMXHjiobL8CSvJ4q7DJx2MuQ/2g4Lj
+BaAhXCvMJ9/LvNe4QG1c0aH5fDfEI5GBivGpQ6z8RX5horLtI0EQ/crndOxLSKee
+49tRw0y1mAT+8onbQkxFDsyywi9bNc0uHY/7PFaW8URt2Kx6k7KLhUID/OzWyH6b
+QvuHQ4Qlcs5QDtAuCzfKJxZYjz54AMB4YL+Gqg0xBy0sVaIbny5gJX7aOzjSbf2z
+3awgn06klSw=
+=jTa8
+-----END PGP SIGNATURE-----
+</textarea>
+<!--
+    Another test for v3 signatures.
+      Message taken from: https://www.defcon.org/html/links/dc-transparency.html
+
+    We do not provide a key, so this should not pass verification.
+-->
+<textarea id="InboundClearSignNoKeyEncryptionDesktop10_3_2">
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+Transparency Report
+March 17 2016
+
+As of the date above, DEF CON has not received any National Security
+Letters or any orders under the Foreign Intelligence Surveillance Act. DEF
+CON does not have any knowledge of any search orders that have been issued
+or carried out.
+
+DEF CON will update this statement bi-monthly with any changes, the next
+being on or before May 20, 2016.
+
+For more information around what inspired this statement check out
+https://www.canarywatch.org/.
+
+The Dark Tangent
+
+-----BEGIN PGP SIGNATURE-----
+Version: Encryption Desktop 10.3.2 (Build 21274)
+Charset: utf-8
+
+wsBVAwUBVupOOzNailnD7iKSAQg8+wf+LkTeENj25/3zopyBmAdWBJaswdT/As2w
+W7bHD3zhNlTJWoWhZWIGYL5NWLyEAyF4WHq5WeUoKJ4wA/SOBBASBvNbvXqymltx
+tmEGCgroJvlYrc2OHQ7MR/aplqCdAYZ/AQ7Bv3jbPTQ0k3doSa2dmxkIUt9kaE7i
+d6JnuGxtVnilSrj55vbrQsNujM37rEJ95c+gD49gRTp572ok9wJyRSPw1mh11+k6
+e8HaeMGHWOW2ehBBtgoG7G3uu7Q85UoibhbGNTub6cQMfjVxddoQ8yIt1yimVJ0o
+JAvg2nNGEsXR4TkT/iBTwhf2L5g7bMdN6u4Zg7QKkDIuso89M4bQtw==
+=2cJT
+-----END PGP SIGNATURE-----
+</textarea>
+<!--
   InboundKeyGnuPg1_DummyS2k:
   Test for keys exported with --export-secret-subkeys
   gnu-dummy S2K, algo: 3, SHA1 protection, hash: 2
@@ -823,6 +1236,564 @@ VbjYFJxk9Uhl17tfTMSJFTnwB4pouBtUa2+7hRyx9/Tdc04fJDJHzhwz1lZWLg/+
 =80Vy
 -----END PGP PUBLIC KEY BLOCK-----
 </textarea>
+<!--
+OpenKeychain 3.1.0-generated ECC key using P_256 curve.
+Old: Public Key Packet(tag 6)(82 bytes)
+    Ver 4 - new
+    Public key creation time - Wed Jun 17 16:52:02 CEST 2015
+    Pub alg - Reserved for ECDSA(pub 19)
+    Unknown public key(pub 19)
+Old: User ID Packet(tag 13)(25 bytes)
+    User ID - Ecdsa <ecdsa@example.com>
+Old: Signature Packet(tag 2)(122 bytes)
+    Ver 4 - new
+    Sig type - Positive certification of a User ID and Public Key packet(0x13).
+    Pub alg - Reserved for ECDSA(pub 19)
+    Hash alg - SHA256(hash 8)
+    Hashed Sub: preferred symmetric algorithms(sub 11)(4 bytes)
+        Sym alg - AES with 256-bit key(sym 9)
+        Sym alg - AES with 192-bit key(sym 8)
+        Sym alg - AES with 128-bit key(sym 7)
+        Sym alg - Twofish with 256-bit key(sym 10)
+    Hashed Sub: preferred hash algorithms(sub 21)(6 bytes)
+        Hash alg - SHA256(hash 8)
+        Hash alg - SHA512(hash 10)
+        Hash alg - SHA384(hash 9)
+        Hash alg - SHA224(hash 11)
+        Hash alg - SHA1(hash 2)
+        Hash alg - RIPEMD160(hash 3)
+    Hashed Sub: preferred compression algorithms(sub 22)(3 bytes)
+        Comp alg - ZIP <RFC1951>(comp 1)
+        Comp alg - ZLIB <RFC1950>(comp 2)
+        Comp alg - BZip2(comp 3)
+    Hashed Sub: primary User ID(sub 25)(1 bytes)
+        Primary - Yes
+    Hashed Sub: signature creation time(sub 2)(critical)(4 bytes)
+        Time - Wed Jun 17 16:52:02 CEST 2015
+    Hashed Sub: features(sub 30)(critical)(1 bytes)
+        Flag - Modification detection (packets 18 and 19)
+    Hashed Sub: key flags(sub 27)(critical)(1 bytes)
+        Flag - This key may be used to certify other keys
+        Flag - This key may be used to sign data
+        Flag - This key may be used for authentication
+    Sub: issuer key ID(sub 16)(8 bytes)
+        Key ID - 0x39FCD71E97045810
+    Hash left 2 bytes - f7 0e
+    Unknown signature(pub 19)
+Old: Public Subkey Packet(tag 14)(86 bytes)
+    Ver 4 - new
+    Public key creation time - Wed Jun 17 16:52:02 CEST 2015
+    Pub alg - Reserved for Elliptic Curve(pub 18)
+    Unknown public key(pub 18)
+Old: Signature Packet(tag 2)(97 bytes)
+    Ver 4 - new
+    Sig type - Subkey Binding Signature(0x18).
+    Pub alg - Reserved for ECDSA(pub 19)
+    Hash alg - SHA256(hash 8)
+    Hashed Sub: signature creation time(sub 2)(critical)(4 bytes)
+        Time - Wed Jun 17 16:52:02 CEST 2015
+    Hashed Sub: key flags(sub 27)(critical)(1 bytes)
+        Flag - This key may be used to encrypt communications
+        Flag - This key may be used to encrypt storage
+    Sub: issuer key ID(sub 16)(8 bytes)
+        Key ID - 0x39FCD71E97045810
+    Hash left 2 bytes - 5a c2
+    Unknown signature(pub 19)
+
+-->
+<textarea id="InboundKeyOpenKeychain_ECDSA_ECDH_P256">
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+mFIEVYGJkhMIKoZIzj0DAQcCAwSOLG0zDfX/HiNGHKrIGdkKNQrwvReOTioOe/Gz
+kWoOndSfutg2Kt2jui33Ntg+O+ryn5gLYDZRGFMZbIbIuQOetBlFY2RzYSA8ZWNk
+c2FAZXhhbXBsZS5jb20+iHoEExMIACIFCwkIBwoHFQgKCQsCAwQWAQIDAhkBBYJV
+gYmSAp4BApsjAAoJEDn81x6XBFgQ9w4A/j5Vpn6X0ufZ+NVZnS9Etvc7g/+F+7ZO
+TFNn3GjeDowkAQDI9sMtdTg/69IO26530V33hDGbm7yfsAPeDh/A3PfFOrhWBFWB
+iZISCCqGSM49AwEHAgMERBGoCFTjhWoi3kwGzGSDsCQd1LVkKwP0uiveo0RhvnkH
+bJgGLvvfpqPmueSz5kvcljlK8jOxace05oXEFJlhYQMBCAeIYQQYEwgACQWCVYGJ
+kgKbDAAKCRA5/NcelwRYEFrCAQCrNob3ocYacl+Ihdn1IzAX+HrP+y0HpQ6oGj+k
+loOWmgD/cqnS4j44g/d631O5exK3bw8QSS9mgWI4YAVAKlJ79UY=
+=ZmtP
+-----END PGP PUBLIC KEY BLOCK-----
+</textarea>
+<!--
+Private counterpart of the above key.
+:secret key packet:
+    version 4, algo 19, created 1434552722, expires 0
+    unknown algorithm 19
+:user ID packet: "Ecdsa <ecdsa@example.com>"
+:signature packet: algo 19, keyid 39FCD71E97045810
+    version 4, created 1434552722, md5len 0, sigclass 0x13
+    digest algo 8, begin of digest f7 0e
+    hashed subpkt 11 len 4 (pref-sym-algos: 9 8 7 10)
+    hashed subpkt 21 len 6 (pref-hash-algos: 8 10 9 11 2 3)
+    hashed subpkt 22 len 3 (pref-zip-algos: 1 2 3)
+    hashed subpkt 25 len 1 (primary user ID)
+    critical hashed subpkt 2 len 4 (sig created 2015-06-17)
+    critical hashed subpkt 30 len 1 (features: 01)
+    critical hashed subpkt 27 len 1 (key flags: 23)
+    subpkt 16 len 8 (issuer key ID 39FCD71E97045810)
+    unknown algorithm 19
+:secret sub key packet:
+    version 4, algo 18, created 1434552722, expires 0
+    unknown algorithm 18
+:signature packet: algo 19, keyid 39FCD71E97045810
+    version 4, created 1434552722, md5len 0, sigclass 0x18
+    digest algo 8, begin of digest 5a c2
+    critical hashed subpkt 2 len 4 (sig created 2015-06-17)
+    critical hashed subpkt 27 len 1 (key flags: 0C)
+    subpkt 16 len 8 (issuer key ID 39FCD71E97045810)
+    unknown algorithm 19
+-->
+<textarea id="InboundKeyOpenKeychain_ECDSA_ECDH_P256_Private">
+-----BEGIN PGP PRIVATE KEY BLOCK-----
+
+lKUEVYGJkhMIKoZIzj0DAQcCAwSOLG0zDfX/HiNGHKrIGdkKNQrwvReOTioOe/Gz
+kWoOndSfutg2Kt2jui33Ntg+O+ryn5gLYDZRGFMZbIbIuQOe/gkDCKIW4R4Fch/L
+kLDSatJgkQz0+Sno53mWv/9VfjRNfp/Vn3HMyYqE4JcJnkYsg5UgsTxCCDt3PWNA
+ADJWkHc0yuzo/6NYvSIFupbrJFdxtdq0GUVjZHNhIDxlY2RzYUBleGFtcGxlLmNv
+bT6IegQTEwgAIgULCQgHCgcVCAoJCwIDBBYBAgMCGQEFglWBiZICngECmyMACgkQ
+OfzXHpcEWBD3DgD+PlWmfpfS59n41VmdL0S29zuD/4X7tk5MU2fcaN4OjCQBAMj2
+wy11OD/r0g7brnfRXfeEMZubvJ+wA94OH8Dc98U6nKkEVYGJkhIIKoZIzj0DAQcC
+AwREEagIVOOFaiLeTAbMZIOwJB3UtWQrA/S6K96jRGG+eQdsmAYu+9+mo+a55LPm
+S9yWOUryM7Fpx7TmhcQUmWFhAwEIB/4JAwiiFuEeBXIfy5DuQG8hAHJbG1SOPJ8F
+xOPx++PGWtyVXGHziHQR4TU8UNIh243MMPY8ysUKwrT03v1j81f5cgN8yiCdViq9
+MnFYCF2ptnspiGEEGBMIAAkFglWBiZICmwwACgkQOfzXHpcEWBBawgEAqzaG96HG
+GnJfiIXZ9SMwF/h6z/stB6UOqBo/pJaDlpoA/3Kp0uI+OIP3et9TuXsSt28PEEkv
+ZoFiOGAFQCpSe/VG
+=TWSc
+-----END PGP PRIVATE KEY BLOCK-----
+</textarea>
+<!--
+Message encrypted with OpenKeychain to the above P256 key.
+Old: Public-Key Encrypted Session Key Packet(tag 1)(126 bytes)
+    New version(3)
+    Key ID - 0x0038DD4CEDE6B441
+    Pub alg - Reserved for Elliptic Curve(pub 18)
+        unknown(pub 18)
+        -> m = sym alg(1 byte) + checksum(2 bytes) + PKCS-1 block type 02
+New: Symmetrically Encrypted and MDC Packet(tag 18)(191 bytes)
+    Ver 1
+    Encrypted data [sym alg is specified in pub-key encrypted session key]
+        (plain text + MDC SHA1(20 bytes))
+-->
+<textarea id="Inbound_ECDSA_ECDH_P256_OpenKeychain">
+-----BEGIN PGP MESSAGE-----
+
+hH4DADjdTO3mtEESAgMEbJ1bEzi00pBsA4ZD22spKfpchpsxDEw62HFvvWWuVOWB
+/0NrVAQ0SJ1x2FmMiM/B9NsWVoFU7uRi1FjLhr/s2DCcNSb0cDUNqeMQMzkwOBEf
+wR8Fkw9buMNQMokHjaXs0auW2ohn22BxuwbQwZEmHXvSvwEjwN66H0XY+a7/M6c8
+DnHSFaBXb3lhD0nxdSQ2L15BsKQOioF6zQU51nUyR9PT5j9o7PSdH2g6pn7gOl8A
+PRgzQGSSzNHL1g080lS+7zg7QsZiab11+H/7PzFDUVUlteFhH0ZA0l70nx8wbuhV
+5BhH75Pic2OoclBpvhFl+QtYGwZKh3NB8/Y8NHk6D70ENRo1gZg5YMc/Fx98v9r2
+7o2apzlKGe01uevHr2FMR5s/b59xgUVRMqPQF1aflyPx
+=XF2D
+-----END PGP MESSAGE-----
+</textarea>
+
+<!--
+OpenKeychain 3.1.0-generated ECC key using P_521 curve.
+Key is invalid as it uses too short SHA-256 hash in the signature.
+See https://github.com/open-keychain/open-keychain/issues/1353
+Old: Public Key Packet(tag 6)(147 bytes)
+    Ver 4 - new
+    Public key creation time - Wed Jun 17 17:08:33 CEST 2015
+    Pub alg - Reserved for ECDSA(pub 19)
+    Unknown public key(pub 19)
+Old: User ID Packet(tag 13)(32 bytes)
+    User ID - Ecdsa 521 <ecdsa521@example.com>
+Old: Signature Packet(tag 2)(189 bytes)
+    Ver 4 - new
+    Sig type - Positive certification of a User ID and Public Key packet(0x13).
+    Pub alg - Reserved for ECDSA(pub 19)
+    Hash alg - SHA256(hash 8)
+    Hashed Sub: preferred symmetric algorithms(sub 11)(4 bytes)
+        Sym alg - AES with 256-bit key(sym 9)
+        Sym alg - AES with 192-bit key(sym 8)
+        Sym alg - AES with 128-bit key(sym 7)
+        Sym alg - Twofish with 256-bit key(sym 10)
+    Hashed Sub: preferred hash algorithms(sub 21)(6 bytes)
+        Hash alg - SHA256(hash 8)
+        Hash alg - SHA512(hash 10)
+        Hash alg - SHA384(hash 9)
+        Hash alg - SHA224(hash 11)
+        Hash alg - SHA1(hash 2)
+        Hash alg - RIPEMD160(hash 3)
+    Hashed Sub: preferred compression algorithms(sub 22)(3 bytes)
+        Comp alg - ZIP <RFC1951>(comp 1)
+        Comp alg - ZLIB <RFC1950>(comp 2)
+        Comp alg - BZip2(comp 3)
+    Hashed Sub: primary User ID(sub 25)(1 bytes)
+        Primary - Yes
+    Hashed Sub: signature creation time(sub 2)(critical)(4 bytes)
+        Time - Wed Jun 17 17:08:33 CEST 2015
+    Hashed Sub: features(sub 30)(critical)(1 bytes)
+        Flag - Modification detection (packets 18 and 19)
+    Hashed Sub: key flags(sub 27)(critical)(1 bytes)
+        Flag - This key may be used to certify other keys
+        Flag - This key may be used to sign data
+        Flag - This key may be used for authentication
+    Sub: issuer key ID(sub 16)(8 bytes)
+        Key ID - 0x7257CF4D2BA778AD
+    Hash left 2 bytes - 87 c6
+    Unknown signature(pub 19)
+Old: Public Subkey Packet(tag 14)(151 bytes)
+    Ver 4 - new
+    Public key creation time - Wed Jun 17 17:08:33 CEST 2015
+    Pub alg - Reserved for Elliptic Curve(pub 18)
+    Unknown public key(pub 18)
+Old: Signature Packet(tag 2)(164 bytes)
+    Ver 4 - new
+    Sig type - Subkey Binding Signature(0x18).
+    Pub alg - Reserved for ECDSA(pub 19)
+    Hash alg - SHA256(hash 8)
+    Hashed Sub: signature creation time(sub 2)(critical)(4 bytes)
+        Time - Wed Jun 17 17:08:33 CEST 2015
+    Hashed Sub: key flags(sub 27)(critical)(1 bytes)
+        Flag - This key may be used to encrypt communications
+        Flag - This key may be used to encrypt storage
+    Sub: issuer key ID(sub 16)(8 bytes)
+        Key ID - 0x7257CF4D2BA778AD
+    Hash left 2 bytes - 25 a5
+    Unknown signature(pub 19)
+-->
+<textarea id="InboundKeyOpenKeychain_ECDSA_ECDH_P521_bug1353">
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+mJMEVYGNcRMFK4EEACMEIwQBu5yuGF+FhJeOB6HjLUEwF8qgGKDxxhOjCdqoMnQ2
+YgVe+xsjeSYUjUTpp4by2nwuSfcDjDfUHQrPTwk1j83nLwkAFOT9y8Ij+jHaX5Rq
+YUXDLMU1ULYpzCWk+Drl4GdRxDCFBpy71iEFox/RFVu6lOXBFe/AmmLBh8aAEDeg
+jDL9exy0IEVjZHNhIDUyMSA8ZWNkc2E1MjFAZXhhbXBsZS5jb20+iL0EExMIACIF
+CwkIBwoHFQgKCQsCAwQWAQIDAhkBBYJVgY1xAp4BApsjAAoJEHJXz00rp3ith8YC
+CQHZ0q426Eo8Y2qwxMzR8pffZg+jHBNd/UR7GTYYh0VLQzgJTxJXlUkWyWDOalEu
+heGCj1txH+E4c9FskePayI+iIwIIp3db23oZ6R3i/Ll01axWVnrEqw4BxGixpeTX
+nBgXm/bQpJKFj37IPM0Jbkytsbh+BVt91qduJ88F/Tf1LF/gCB+4lwRVgY1xEgUr
+gQQAIwQjBABiF4MOcjNekpP98s90WBiTMAXC7Sjuo427p3io2kYMlW8MhxJnjI/y
+7k5ZeUBwznUz+WP7Dd+r9VjjOAq0SB2GWwDgqcIzPws7eVs+QDU/VDjoVMEdg97p
+TBnum01XuV+SXDM2AvBc5y3tLB6lr12X44C+2L9zwww/JJfGBFVSm/RKsgMBCAeI
+pAQYEwgACQWCVYGNcQKbDAAKCRByV89NK6d4rSWlAgkBYvmu94R7+hxwQTy7Mbh5
+Dj4BNaPHFbjXS90rYIGEZYYezvFFNHVLBDD/7pLPSScavub6vEEyOVAegmb1YE3w
+ewUCAgO70gMgawX3tAQVt7oTmpoRj+cqTuP4hRNxs4uDz/faaCmPE64uKzwv/ftu
+w7E9Y/YqHaZqrBHVbba53gP8Y0HW
+=DXu0
+-----END PGP PUBLIC KEY BLOCK-----
+</textarea>
+<!--
+ECDSA/ECDH key created with GnuPG 2.1.5 using P_256 curve.
+# off=0 ctb=98 tag=6 hlen=2 plen=82
+:public key packet:
+    version 4, algo 19, created 1434973135, expires 0
+    pkey[0]: [72 bits] nistp256 (1.2.840.10045.3.1.7)
+    pkey[1]: [515 bits]
+    keyid: 0818CA3A55C666AE
+# off=84 ctb=b4 tag=13 hlen=2 plen=47
+:user ID packet: "gpg21_p256@example.com <gpg21_p256@example.com>"
+# off=133 ctb=88 tag=2 hlen=2 plen=121
+:signature packet: algo 19, keyid 0818CA3A55C666AE
+    version 4, created 1434973135, md5len 0, sigclass 0x13
+    digest algo 10, begin of digest 55 10
+    hashed subpkt 2 len 4 (sig created 2015-06-22)
+    hashed subpkt 27 len 1 (key flags: 03)
+    hashed subpkt 11 len 4 (pref-sym-algos: 9 8 7 3)
+    hashed subpkt 21 len 4 (pref-hash-algos: 10 9 8 11)
+    hashed subpkt 22 len 4 (pref-zip-algos: 2 3 1 0)
+    hashed subpkt 30 len 1 (features: 01)
+    hashed subpkt 23 len 1 (key server preferences: 80)
+    subpkt 16 len 8 (issuer key ID 0818CA3A55C666AE)
+    data: [256 bits]
+    data: [255 bits]
+# off=256 ctb=b8 tag=14 hlen=2 plen=86
+:public sub key packet:
+    version 4, algo 18, created 1434973135, expires 0
+    pkey[0]: [72 bits] nistp256 (1.2.840.10045.3.1.7)
+    pkey[1]: [515 bits]
+    pkey[2]: [32 bits]
+    keyid: F89934E4D8113B1B
+# off=344 ctb=88 tag=2 hlen=2 plen=97
+:signature packet: algo 19, keyid 0818CA3A55C666AE
+    version 4, created 1434973135, md5len 0, sigclass 0x18
+    digest algo 10, begin of digest 82 d1
+    hashed subpkt 2 len 4 (sig created 2015-06-22)
+    hashed subpkt 27 len 1 (key flags: 0C)
+    subpkt 16 len 8 (issuer key ID 0818CA3A55C666AE)
+    data: [255 bits]
+    data: [256 bits]
+-->
+<textarea id="InboundKeyGnupg_2_1_5_ECDSA_ECDH_P256">
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Comment: GPGTools - https://gpgtools.org
+
+mFIEVYfzzxMIKoZIzj0DAQcCAwQEkXu4nElf1Kfa+aP0rb9CJHWYFv9mgqvysuwH
+0Hwni0EAFx83YYTQSRBUkbqCysbzjhORwYBhualBtMr1kHFStC9ncGcyMV9wMjU2
+QGV4YW1wbGUuY29tIDxncGcyMV9wMjU2QGV4YW1wbGUuY29tPoh5BBMTCgAhBQJV
+h/PPAhsDBQsJCAcDBRUKCQgLBRYCAwEAAh4BAheAAAoJEAgYyjpVxmauVRABAMf4
+ZCDDdDp+1scv+NGB7k8r9dtc/9QcRUUnsiNa4yRGAP9LK5ITIA+PV/vtB09QmpCP
+/9aOpSZzKyfjceQle7CWorhWBFWH888SCCqGSM49AwEHAgME7mKFDQJzG531qYVj
+8NV6vhQL6bKpgpPl5FqayFy1BhFv3+2EBZWJr9T24zSB1frLY14iTss5Mt3rY3yS
+VwiPugMBCAeIYQQYEwoACQUCVYfzzwIbDAAKCRAIGMo6VcZmroLRAP9Hp6IOOMn9
+EVpsciIEykv74rLmWN/qFAVplmgx2TtvogEArLOz1qvB+ekNqKjuootKKy1TF3bY
+6q3VAEAzGq5CPtQ=
+=6AIQ
+-----END PGP PUBLIC KEY BLOCK-----
+</textarea>
+<!--
+Private key for the above key.
+# off=0 ctb=94 tag=5 hlen=2 plen=166
+:secret key packet:
+    version 4, algo 19, created 1434973135, expires 0
+    pkey[0]: [72 bits] nistp256 (1.2.840.10045.3.1.7)
+    pkey[1]: [515 bits]
+    iter+salt S2K, algo: 7, SHA1 protection, hash: 2, salt: 848CF649FF3938E7
+    protect count: 15728640 (222)
+    protect IV:  95 2e e6 3e 96 05 2c d4 3a 28 64 d5 c3 cc 9e a7
+    skey[2]: [v4 protected]
+    keyid: 0818CA3A55C666AE
+# off=168 ctb=b4 tag=13 hlen=2 plen=47
+:user ID packet: "gpg21_p256@example.com <gpg21_p256@example.com>"
+# off=217 ctb=88 tag=2 hlen=2 plen=121
+:signature packet: algo 19, keyid 0818CA3A55C666AE
+    version 4, created 1434973135, md5len 0, sigclass 0x13
+    digest algo 10, begin of digest 55 10
+    hashed subpkt 2 len 4 (sig created 2015-06-22)
+    hashed subpkt 27 len 1 (key flags: 03)
+    hashed subpkt 11 len 4 (pref-sym-algos: 9 8 7 3)
+    hashed subpkt 21 len 4 (pref-hash-algos: 10 9 8 11)
+    hashed subpkt 22 len 4 (pref-zip-algos: 2 3 1 0)
+    hashed subpkt 30 len 1 (features: 01)
+    hashed subpkt 23 len 1 (key server preferences: 80)
+    subpkt 16 len 8 (issuer key ID 0818CA3A55C666AE)
+    data: [256 bits]
+    data: [255 bits]
+# off=340 ctb=9c tag=7 hlen=2 plen=170
+:secret sub key packet:
+    version 4, algo 18, created 1434973135, expires 0
+    pkey[0]: [72 bits] nistp256 (1.2.840.10045.3.1.7)
+    pkey[1]: [515 bits]
+    pkey[2]: [32 bits]
+    iter+salt S2K, algo: 7, SHA1 protection, hash: 2, salt: 709179C1C3A3E212
+    protect count: 15728640 (222)
+    protect IV:  d2 ca b7 4e 47 ba 18 b3 14 6a 84 3d 58 8b c1 c4
+    skey[3]: [v4 protected]
+    keyid: F89934E4D8113B1B
+# off=512 ctb=88 tag=2 hlen=2 plen=97
+:signature packet: algo 19, keyid 0818CA3A55C666AE
+    version 4, created 1434973135, md5len 0, sigclass 0x18
+    digest algo 10, begin of digest 82 d1
+    hashed subpkt 2 len 4 (sig created 2015-06-22)
+    hashed subpkt 27 len 1 (key flags: 0C)
+    subpkt 16 len 8 (issuer key ID 0818CA3A55C666AE)
+    data: [255 bits]
+    data: [256 bits]
+-->
+<textarea id="InboundKeyGnupg_2_1_5_ECDSA_ECDH_P256_Private">
+-----BEGIN PGP PRIVATE KEY BLOCK-----
+Comment: GPGTools - https://gpgtools.org
+
+lKYEVYfzzxMIKoZIzj0DAQcCAwQEkXu4nElf1Kfa+aP0rb9CJHWYFv9mgqvysuwH
+0Hwni0EAFx83YYTQSRBUkbqCysbzjhORwYBhualBtMr1kHFS/gcDAoSM9kn/OTjn
+3pUu5j6WBSzUOihk1cPMnqcaUC3ME1sfxh26xLSvMtBbcWG6jzGdqf2e8OGjb50r
+/xp83kY25gRwz6ZJ71oBFhF4AxbxDusXtC9ncGcyMV9wMjU2QGV4YW1wbGUuY29t
+IDxncGcyMV9wMjU2QGV4YW1wbGUuY29tPoh5BBMTCgAhBQJVh/PPAhsDBQsJCAcD
+BRUKCQgLBRYCAwEAAh4BAheAAAoJEAgYyjpVxmauVRABAMf4ZCDDdDp+1scv+NGB
+7k8r9dtc/9QcRUUnsiNa4yRGAP9LK5ITIA+PV/vtB09QmpCP/9aOpSZzKyfjceQl
+e7CWopyqBFWH888SCCqGSM49AwEHAgME7mKFDQJzG531qYVj8NV6vhQL6bKpgpPl
+5FqayFy1BhFv3+2EBZWJr9T24zSB1frLY14iTss5Mt3rY3ySVwiPugMBCAf+BwMC
+cJF5wcOj4hLe0sq3Tke6GLMUaoQ9WIvBxI8EQTvzpeCC5CDvFdE9br6dqXKd9tgY
+7Brh4jHQjxAP2coq9LEzfCIAeb8GHyuj4koI3LXplcKIYQQYEwoACQUCVYfzzwIb
+DAAKCRAIGMo6VcZmroLRAP9Hp6IOOMn9EVpsciIEykv74rLmWN/qFAVplmgx2Ttv
+ogEArLOz1qvB+ekNqKjuootKKy1TF3bY6q3VAEAzGq5CPtQ=
+=AZJ5
+-----END PGP PRIVATE KEY BLOCK-----
+</textarea>
+<!--
+Message encrypted and signed with the above keypair.
+gpg: encrypted with 256-bit ECDH key, ID D8113B1B, created 2015-06-22
+      "gpg21_p256@example.com <gpg21_p256@example.com>"
+# off=0 ctb=84 tag=1 hlen=2 plen=126
+:pubkey enc packet: version 3, algo 18, keyid F89934E4D8113B1B
+    data: [515 bits]
+    data: [392 bits]
+# off=128 ctb=d2 tag=18 hlen=2 plen=174 new-ctb
+:encrypted data packet:
+    length: 174
+    mdc_method: 2
+# off=149 ctb=a3 tag=8 hlen=1 plen=0 partial
+:compressed packet: algo=2
+# off=151 ctb=90 tag=4 hlen=2 plen=13
+:onepass_sig packet: keyid 0818CA3A55C666AE
+    version 3, sigclass 0x00, digest 10, pubkey 19, last=1
+# off=166 ctb=cb tag=11 hlen=2 plen=12 new-ctb
+:literal data packet:
+    mode b (62), created 1434973462, name="",
+    raw data: 6 bytes
+# off=180 ctb=88 tag=2 hlen=2 plen=94
+:signature packet: algo 19, keyid 0818CA3A55C666AE
+    version 4, created 1434973466, md5len 0, sigclass 0x00
+    digest algo 10, begin of digest d5 49
+    hashed subpkt 2 len 4 (sig created 2015-06-22)
+    subpkt 16 len 8 (issuer key ID 0818CA3A55C666AE)
+    data: [255 bits]
+    data: [256 bits]
+-->
+<textarea id="Inbound_ECDSA_ECDH_P256_Gnupg_2_1_5">
+-----BEGIN PGP MESSAGE-----
+Comment: GPGTools - https://gpgtools.org
+
+hH4D+Jk05NgROxsSAgMEmmA2SWhvLNxtvvgM7UTS3wHKT+9Qv4nohN068VclO99w
+wt8gXklfc4jMuer2N0alB6j9lxz+bF9s0CDJXar2QjAVj6L+7vSnlTUbRgeaA5+/
+tyKbxTeiMjMXN3AVpJbfJVFxIzbZDrb2WC7E68yOAZrSrgFosdNQtnDLR6z7dtlw
+0aBBf71JC7K5OpnHCNxHG6yfuqwJMtdsTSPxxvq2OlQNO2fA4NEdOO5nco+ux4eX
+PlBJOeVq+NiKUwXLl2IH0N+9fgTnUCyXRabmOMvGtck9YyjPSayyFhIiVKa+Am49
+xPX3qHTf9i7qJ2VGK+2B/h7ReJaTx7E4o2vzlGwRWJ/xvb1Qui1ixKRwjn2/+yut
+EVo2ay/cyIJZs8+t7NaE2g==
+=zSfU
+-----END PGP MESSAGE-----
+</textarea>
+<textarea id="InboundKeyGnupg_2_1_5_ECDSA_ECDH_P384">
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Comment: GPGTools - https://gpgtools.org
+
+mG8EVYh67BMFK4EEACIDAwT89Q3wJJMbkWpn6K781MjmCCaXsO2Yrni8nRqUO0Jy
+/IRRvyQUQFwkPlOFGls9Jow/wuQ+e+LzpilCAiCsjIabVOn8E6POrk7aX+2hEVvP
+h+fWX5FWFQVHhRHlTE8YwJy0IWdwZzIxcDM4NCA8Z3BnMjFwMzg0QGV4YW1wbGUu
+Y29tPoiZBBMTCgAhBQJViHrsAhsDBQsJCAcDBRUKCQgLBRYCAwEAAh4BAheAAAoJ
+EG73wu4hz8jwLLYBgOAqkyN0pUAhCpBeep/q9bJ8Ngqpjm19Mpt0SPMK/WCObSEy
+GSf/gOs0GFdeRvYtbwGAg03eKfIxh8WuyoCltVxD4DLXfaDcHpJ8Ljnqr11wf+iO
+zeDFbvTnI+xvyFKkGQjyuHMEVYh67BIFK4EEACIDAwTrI7z0pCt93EAbYtV40HD2
+uuyMfVkoUVBrNvOyRQn1cXF6bO55YoLLVg2Q9TcKoR8GE84lSHl35Y+piAgSvn3V
+/tgD6WKT0DGok67WW7GmI7pptGoDUUhSXb5nL1kYEi8DAQkJiIEEGBMKAAkFAlWI
+euwCGwwACgkQbvfC7iHPyPChsQF/bppdagCf6/JLRa5nWJAYxtDospe6kwCpS/+1
+xb26oiI3rSpjpZ8UN/QSb9GECImbAXsHTUFmPPNsvTeXvn7kNxWgRjqd88E0lsY/
+/WgGGLP83B2OLNkLb3emRpDQx0xMITI=
+=Z9h1
+-----END PGP PUBLIC KEY BLOCK-----
+</textarea>
+<textarea id="InboundKeyGnupg_2_1_5_ECDSA_ECDH_P384_Private">
+-----BEGIN PGP PRIVATE KEY BLOCK-----
+Comment: GPGTools - https://gpgtools.org
+
+lNIEVYh67BMFK4EEACIDAwT89Q3wJJMbkWpn6K781MjmCCaXsO2Yrni8nRqUO0Jy
+/IRRvyQUQFwkPlOFGls9Jow/wuQ+e+LzpilCAiCsjIabVOn8E6POrk7aX+2hEVvP
+h+fWX5FWFQVHhRHlTE8YwJz+BwMCTbZcGgevVRreMw+wcWl/KTZ5A0bHEMX5eYtT
+5of9t4CNogLFw1clStLqq+veG0fJWxY7T+GYJxVj/MtVNzNK1fZfquzr9OwkSjGh
+Iy0dB6QZb99qt6M22p9IjoEtgoG0IWdwZzIxcDM4NCA8Z3BnMjFwMzg0QGV4YW1w
+bGUuY29tPoiZBBMTCgAhBQJViHrsAhsDBQsJCAcDBRUKCQgLBRYCAwEAAh4BAheA
+AAoJEG73wu4hz8jwLLYBgOAqkyN0pUAhCpBeep/q9bJ8Ngqpjm19Mpt0SPMK/WCO
+bSEyGSf/gOs0GFdeRvYtbwGAg03eKfIxh8WuyoCltVxD4DLXfaDcHpJ8Ljnqr11w
+f+iOzeDFbvTnI+xvyFKkGQjynNYEVYh67BIFK4EEACIDAwTrI7z0pCt93EAbYtV4
+0HD2uuyMfVkoUVBrNvOyRQn1cXF6bO55YoLLVg2Q9TcKoR8GE84lSHl35Y+piAgS
+vn3V/tgD6WKT0DGok67WW7GmI7pptGoDUUhSXb5nL1kYEi8DAQkJ/gcDAk0o9zrJ
+iX5s3lev87Po5GrLI8KyLzdaFe01Vqoq3CG7SWIRSxXZSTXwrCDJ/wqEqx7SeQBC
+ljn8pbgzPDmybFm19K6QC6+7iX4h8AGyF7pIxr1/rJNxHMTbuYuqGtgTiIEEGBMK
+AAkFAlWIeuwCGwwACgkQbvfC7iHPyPChsQF/bppdagCf6/JLRa5nWJAYxtDospe6
+kwCpS/+1xb26oiI3rSpjpZ8UN/QSb9GECImbAXsHTUFmPPNsvTeXvn7kNxWgRjqd
+88E0lsY//WgGGLP83B2OLNkLb3emRpDQx0xMITI=
+=prJM
+-----END PGP PRIVATE KEY BLOCK-----
+</textarea>
+<textarea id="Inbound_ECDSA_ECDH_P384_Gnupg_2_1_5">
+-----BEGIN PGP MESSAGE-----
+Comment: GPGTools - https://gpgtools.org
+
+hJ4DHGTZqboOYrASAwMEtYUeDDJwqxZtXs5yl57p4r09P1dkJmYa5/OLAFlP2OSJ
+84kDtk9YxA76XK0dsuiK8nqPwtMhfJyMAablGHWYXYaOchWOPNGPcRcGfNwDBQ6y
+kWmmlFxW86RWj+Hhp+auMN3hTp0KmxtLWSrqjbsR41EhXdNURgsAAJ1C/w2ERxhw
+M1XpaF3di/XbRWwLpkIRMNLAEAEzoZLHEmyrRUgWGIz3+28XABGgd0wmbrUG0igP
+ZaTrPV7lnW15qHQA35EcCgsuABZK3oKzBgEIXv3qHIxEQyul42OR+MRLicSjN0DP
+5qEMgPPKI9QM4oGSnqiKoZRjI4UWtSQoqUtyk0loU5Zp9fWtxAOfE4lb7pz0BpT2
+7QTibMqODtHQuv8qZFFDrE0h4U42b1Cl+UTZgAgLD4KDwdCDjdZyQWkJLbbLj9Jn
+4meJ3euvbhmJiDvbS+LFBU3wCXAvtYILOxkSuIrTOkBE6xg=
+=Ysdz
+-----END PGP MESSAGE-----
+</textarea>
+<textarea id="InboundKeyGnupg_2_1_5_ECDSA_ECDH_P521">
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Comment: GPGTools - https://gpgtools.org
+
+mJMEVYh/7BMFK4EEACMEIwQANhjHlYst9EvUfVlNoZ3s2JD1TtEFUlgewo+fRGNu
+JDAIEBpEc8PCdxPxBZr56qnQjEuaFNJzJiM5EMkPV44RYbYA4K4zEpVe9BlW0l7n
+ledDGpc8H0+2cTtaqYnxVsDJ1SCD+nYbjIpLqaYxGgJuz3R2iyfvOYAZgk9qM8b4
+jM0SE0a0IWdwZzIxcDUyMSA8Z3BnMjFwNTIxQGV4YW1wbGUuY29tPoi8BBMTCgAh
+BQJViH/sAhsDBQsJCAcDBRUKCQgLBRYCAwEAAh4BAheAAAoJEGRcqQKef3Oxc1MC
+B3vQGNAAqlTmIipCLIVQON+PEz4EUsrUbDIVg2HLEumeWh/vCaVvouFFpoBGAnYY
+GLq1gIzIurgR9TLu1MewPMEbAgkBhYqqV43UtdF2Z5UmyMbderDbbCdW+lCEH8m+
+lUIxl/JGcMW7m4AwFPo5uIqf+FqcG6X+smwcWADyC8qXqQYcZ9a4lwRViH/sEgUr
+gQQAIwQjBAHtNhqjtxk3LMMGtDs1KvHz2rEg6aYVewON5fKtjuI6KI+lmakXKB90
+a2elz5yTXEI62h0/TxaJur/eJqMsvJApkAAd17+it6Yw5U2FGg+9CzVMcLtslPaW
+7jbbVpYxueBXh/+TtE1OpoP6ZkDCkO3zCeR/CELDViBhefdKnDhq8Q7xnQMBCgmI
+pAQYEwoACQUCVYh/7AIbDAAKCRBkXKkCnn9zsXJjAgkBH54W+57W01hrRNwtNgkr
+JRpcTAPuQTWK4rDiccHtR5CJgCSi24ig+jHu4szCWWQoKPECz+yAVgK4Xpn49JuX
+w0cCBix5sLuRl0d0kY3JCER2N/9OksKE58votYgrZLpcWlxkRp0JnA16IvLVEwqe
+2mlbxCraQAWqt3hxwo/J+bXvh/X+
+=DB0Q
+-----END PGP PUBLIC KEY BLOCK-----
+</textarea>
+<textarea id="InboundKeyGnupg_2_1_5_ECDSA_ECDH_P521_Private">
+-----BEGIN PGP PRIVATE KEY BLOCK-----
+Comment: GPGTools - https://gpgtools.org
+
+lgAAAQgEVYh/7BMFK4EEACMEIwQANhjHlYst9EvUfVlNoZ3s2JD1TtEFUlgewo+f
+RGNuJDAIEBpEc8PCdxPxBZr56qnQjEuaFNJzJiM5EMkPV44RYbYA4K4zEpVe9BlW
+0l7nledDGpc8H0+2cTtaqYnxVsDJ1SCD+nYbjIpLqaYxGgJuz3R2iyfvOYAZgk9q
+M8b4jM0SE0b+BwMCjvx4XzxygpPeXE5j0D4kw3i1LmO/TxlmeqUfBl/yWMoa2lU+
+/3HG7DHveiGY5CwVknshNWMF5tqC9JDfZ7BdXAtUy3c2Axa3A/zMLGgH6XWNEu0c
+0Bjv2tsmiWfsQYE4GUZoU96ZJnggcvI6X4/ppla0IWdwZzIxcDUyMSA8Z3BnMjFw
+NTIxQGV4YW1wbGUuY29tPoi8BBMTCgAhBQJViH/sAhsDBQsJCAcDBRUKCQgLBRYC
+AwEAAh4BAheAAAoJEGRcqQKef3Oxc1MCB3vQGNAAqlTmIipCLIVQON+PEz4EUsrU
+bDIVg2HLEumeWh/vCaVvouFFpoBGAnYYGLq1gIzIurgR9TLu1MewPMEbAgkBhYqq
+V43UtdF2Z5UmyMbderDbbCdW+lCEH8m+lUIxl/JGcMW7m4AwFPo5uIqf+FqcG6X+
+smwcWADyC8qXqQYcZ9aeAAABCwRViH/sEgUrgQQAIwQjBAHtNhqjtxk3LMMGtDs1
+KvHz2rEg6aYVewON5fKtjuI6KI+lmakXKB90a2elz5yTXEI62h0/TxaJur/eJqMs
+vJApkAAd17+it6Yw5U2FGg+9CzVMcLtslPaW7jbbVpYxueBXh/+TtE1OpoP6ZkDC
+kO3zCeR/CELDViBhefdKnDhq8Q7xnQMBCgn+BwMCOeX7njM1bGneCf0WTpZg7+rZ
+8qL/KqUCB0tD6pz1LeYyZNxPEM17CTyMWXmmg0taRrATUjty24msqyiM9IYZNEc8
+VcOHOP1PUdGgU4cMzcLuoaUesMBL4YztppROluX5s+C2NF0dReQp1qnkKhDqlYik
+BBgTCgAJBQJViH/sAhsMAAoJEGRcqQKef3OxcmMCCQEfnhb7ntbTWGtE3C02CSsl
+GlxMA+5BNYrisOJxwe1HkImAJKLbiKD6Me7izMJZZCgo8QLP7IBWArhemfj0m5fD
+RwIGLHmwu5GXR3SRjckIRHY3/06SwoTny+i1iCtkulxaXGRGnQmcDXoi8tUTCp7a
+aVvEKtpABaq3eHHCj8n5te+H9f4=
+=x+3/
+-----END PGP PRIVATE KEY BLOCK-----
+</textarea>
+<textarea id="Inbound_ECDSA_ECDH_P521_Gnupg_2_1_5">
+-----BEGIN PGP MESSAGE-----
+Comment: GPGTools - https://gpgtools.org
+
+hMIDnEbxpPZKkU8SBCMEAa2wbr0mCM0VcEaCvoVLNy/dNwElX2zDUwvK9H7kRNc8
+ISAU9EPRJByLQ5byoiSGCyet3g0p8vPvStnxr433S1cJASj2IUgj9GjRXpHhz/Ga
+/eW/0c8ZPZfeJmF0zVo4w9x8B/8HlYsjUOCLEr3kdseoYAcxBBYiOMFEJ6qogzh5
+fiahMOf8cyoBhx212fm9M4j3vzcMw3jTEvd0aMmLRg94IAfhc2eI0omfAHB3IRXM
+RoDT9dLAMwGA3lPitdCXkMFfeCwnOLLm//0/moxgn4Xd3QRoywYCEJaB2DBiwYns
+A85xG20Wb+IB96N41szsIb6LkD/1GhYvXeXCyGddAYiTu/qX97Rmtc8uR+4z/3+g
+liO2INYf516ukzu79N543AVR4OnAvRJPnsVh1b5tN2eD2o6QIlyma4ZpakAtSI4J
+nnKJkeJX1YbXl0nD6iH/+uO8zbM2KT/G1Xz06m9laWgBG7XMilpVKkj7TNXHQobW
+v1GRUbXuEn8uW5sZcgt+r+zF1gM3hUWWb+7KcQ3E/nDCF+PuZlxCzMAEp1szEtBp
+sVs8rWGlpJwhJQ==
+=pSZl
+-----END PGP MESSAGE-----
+</textarea>
+<!--
+TODO: replace above msg with this one once the kdf bug is fixed.
+ponizej powinien rzucac wyjatek.
+
+-----BEGIN PGP MESSAGE-----
+Charset: UTF-8
+
+wf8AAADCA5xG8aT2SpFPEgQjBABIiX7wA7lCH5IT521yXM3/0KzX8hCFRBCerAGK
+Na5A5DfVl+zQw/JJHWTkesa1ZyoXv/exCK7lN60RBBpjcTdQ/QCXaiIZHGZeoKby
+7f0EgFgdZq9pXqaq9U04AqTlWb+ZvcHbBAmt6zG34tVPod76Jrsv2mFijZUsDYqN
+vXLcGtOEwDBircBONigVSEfrnspgTdroSzGICq47ekQZ4Sy4oBarx0mtNnY0zun2
+lRSWKxh1d33S/wAAATgBfkXpNmpu7U2alZaoaNSktnglt1Jfa+3Costi1DnFlMSd
+dYHNjezMhizbYVRBBszEEG4+xOotEATTX0BwON6LP2ybG4Gl+eIlZfFrdjEob89P
+6uM6klmSud5/Q6cBBxCmx/bCpC4ariC64aKvVpNaH0J+Ku24CcDrTkMxnmx/M8WY
+3ueKQe+3E7ac+wCKJyH5/rBITnCR/9N0EuY2CBIV6RDAOF42uU4piSJQHPJ+sVxW
+yiJmbRyjME/3gFIHnbtBQT5aRw+KD0XmYee9zsWco/lMj4dca5SB/eZ1LT0r6FhS
+YQolOGcCMVGEMNMmN1ZDcLT9jOuTVoxY0vaf404KCp8byr4/d1tHpDQp+ZAkVm69
+2NlgNC+5uOqBcfv8I1M1aMMJsqB9my8AmFsaBDT+ozdUYs+ba10=
+=qUrx
+-----END PGP MESSAGE-----
+
+
 <!--
  Certificate contains a user id with Unicode characters in the Basic
  Multilingual Plane. This certificate should be accepted.
@@ -1190,7 +2161,7 @@ zbHR0aWTnV3UspMr7xkuXGRrf6bbRcRsYageinoyItK9Of6W/iFI/sKk/yAXsg==
     context = new e2e.openpgp.ContextImpl(
         new goog.testing.storage.FakeMechanism());
     // No passphrase.
-    e2e.async.Result.getValue(context.setKeyRingPassphrase(''));
+    e2e.async.Result.getValue(context.initializeKeyRing(''));
   }
 
   function runTestFor(version, assertionsCb, regexp) {
@@ -1213,30 +2184,37 @@ zbHR0aWTnV3UspMr7xkuXGRrf6bbRcRsYageinoyItK9Of6W/iFI/sKk/yAXsg==
     asyncTest.stepTimeout = encryptedMsgs.length * 2e3;
     asyncTest.waitForAsync('Waiting for decryptions.');
     var deferred = goog.async.DeferredList.gatherResults(results);
-    deferred.addCallback(goog.bind(assertionsCb, this, encryptedMsgs));
+    return deferred.addCallback(goog.bind(assertionsCb, this, encryptedMsgs));
   }
 
   function testInboundRsa() {
+    var assertDecrypts = function(encryptedMsgs, all, opt_plaintext) {
+      var plaintext = e2e.stringToByteArray(opt_plaintext || 'susheep\n');
+      goog.array.forEach(all, function(r) {
+        assertArrayEquals(plaintext, r.decrypt.data);
+      });
+      assertEquals(encryptedMsgs.length, all.length);
+      assert(all.length > 0);
+    };
+    var assertDecryptsCr = function(encryptedMsgs, all) {
+      assertDecrypts(encryptedMsgs, all, 'susheep\r\n');  // \r added by openpgpjs.
+    };
+    var msgRegex = /-----BEGIN[\s\S]*?END PGP MESSAGE-----/g;
+
+    asyncTest.waitForAsync('Waiting for key import.');
     context.importKey(buildPassphraseCallback('test'), RSA_PRIVATE_KEY)
       .addCallback(function() {
-        var assertDecrypts = function(encryptedMsgs, all, opt_plaintext) {
-          var plaintext = e2e.stringToByteArray(opt_plaintext || 'susheep\n');
-          goog.array.forEach(all, function(r) {
-            assertArrayEquals(plaintext, r.decrypt.data);
-          });
-          assertEquals(encryptedMsgs.length, all.length);
-          assert(all.length > 0);
-          asyncTest.continueTesting();
-        };
-        var assertDecryptsCr = function(encryptedMsgs, all) {
-          assertDecrypts(encryptedMsgs, all, 'susheep\r\n');  // \r added by openpgpjs.
-        };
-        var msgRegex = /-----BEGIN[\s\S]*?END PGP MESSAGE-----/g;
-        runTestFor('InboundRsaEncryptGnupg1_4_11', assertDecrypts, msgRegex);
-        runTestFor('InboundRsaEncryptGnupg2_0_17', assertDecrypts, msgRegex);
-        runTestFor('InboundRsaEncryptGnupg2_1_0beta3', assertDecrypts, msgRegex);
-        runTestFor('InboundRsaEncryptPgp10_0_0_674', assertDecrypts, msgRegex);
-        runTestFor('InboundRsaEncryptOpenpgpjs0_7_2', assertDecryptsCr, msgRegex);
+        return runTestFor('InboundRsaEncryptGnupg1_4_11', assertDecrypts, msgRegex)
+    }).addCallback(function() {
+        return runTestFor('InboundRsaEncryptGnupg2_0_17', assertDecrypts, msgRegex);
+    }).addCallback(function() {
+        return runTestFor('InboundRsaEncryptGnupg2_1_0beta3', assertDecrypts, msgRegex);
+    }).addCallback(function() {
+        return runTestFor('InboundRsaEncryptPgp10_0_0_674', assertDecrypts, msgRegex);
+    }).addCallback(function() {
+        return runTestFor('InboundRsaEncryptOpenpgpjs0_7_2', assertDecryptsCr, msgRegex);
+    }).addCallback(function() {
+        asyncTest.continueTesting();
     }).addErrback(fail);
   }
 
@@ -1267,13 +2245,14 @@ zbHR0aWTnV3UspMr7xkuXGRrf6bbRcRsYageinoyItK9Of6W/iFI/sKk/yAXsg==
         assertArrayEquals(plaintext, r.decrypt.data);
         assertEquals(1, r.verify.success.length);
         assertEquals(0, r.verify.failure.length);
-        asyncTest.continueTesting();
       });
     }
     var msgRegex = /-----BEGIN[\s\S]*?END PGP MESSAGE-----/g;
     deferred.addCallback(function() {
-        runTestFor('InboundRsaSignGnupg1_4_11', assertCorrectlySigned, msgRegex);
-    });
+        return runTestFor('InboundRsaSignGnupg1_4_11', assertCorrectlySigned, msgRegex);
+    }).addCallback(function() {
+        asyncTest.continueTesting();
+    }).addErrback(fail);
   }
 
   function testInboundIntertwinedUserAttributeAndUserId() {
@@ -1283,6 +2262,108 @@ zbHR0aWTnV3UspMr7xkuXGRrf6bbRcRsYageinoyItK9Of6W/iFI/sKk/yAXsg==
       fail("Should not call callback");
     }, key).addCallback(function(importedUids) {
         assertEquals(importedUids.length, 2);
+        asyncTest.continueTesting();
+    });
+  }
+
+  /**
+   * Imports a keypair, then creates, signs, decrypts and verifies a message.
+   * After that it tries to decrypt and verify an inbound message created by
+   * the external tool.
+   */
+  function runImportEncryptDecrypt(testName, publicKeyId, privateKeyId,
+        messageId, keyPassphrase) {
+    var messageText = testName;
+    var uid;
+    var publicKey;
+    var message = document.getElementById(messageId).value;
+    var keyPublic = document.getElementById(publicKeyId).value;
+    var keyPrivate = document.getElementById(privateKeyId).value;
+    asyncTest.waitForAsync(testName + ' - Waiting for public key import');
+    context.importKey(fail, keyPublic).addCallback(function(importedUids) {
+        asyncTest.waitForAsync(testName + ' - Waiting for private key import.');
+        return context.importKey(buildPassphraseCallback(keyPassphrase),
+            keyPrivate);
+    }).addCallback(function(importedUids) {
+        assertEquals(1, importedUids.length);
+        uid = importedUids[0];
+        asyncTest.waitForAsync(testName + ' - Waiting for public key search.');
+        return context.searchPublicKey(uid);
+    }).addCallback(function(keys) {
+        publicKey = keys[0];
+        asyncTest.waitForAsync(testName + ' - Waiting for private key search.');
+        return context.searchPrivateKey(uid);
+    }).addCallback(function(privateKeys) {
+        asyncTest.waitForAsync(testName + ' - Waiting for encryption');
+        return context.encryptSign(messageText, {}, [publicKey], [],
+            privateKeys[0]);
+    }).addCallback(function(encryptedMessage) {
+        // Output a message to facilitate testing with external tools.
+        console.log(testName);
+        console.log(encryptedMessage);
+        asyncTest.waitForAsync('Waiting for decryption');
+        return context.verifyDecrypt(fail, encryptedMessage);
+    }).addCallback(function(vd) {
+        assertEquals(messageText, goog.crypt.byteArrayToString(
+            vd.decrypt.data));
+        assertEquals(1, vd.verify.success.length);
+        asyncTest.waitForAsync('Waiting for inbound message decryption');
+        return context.verifyDecrypt(fail, message);
+    }).addCallbacks(function(vd) {
+        console.log(goog.crypt.byteArrayToString(vd.decrypt.data));
+        assertEquals(1, vd.verify.success.length);
+        asyncTest.continueTesting();
+    }, fail);
+  }
+
+  function testGnupg215_P256() {
+    runImportEncryptDecrypt(
+        'GnuGP 2.1.5 P256',
+        'InboundKeyGnupg_2_1_5_ECDSA_ECDH_P256',
+        'InboundKeyGnupg_2_1_5_ECDSA_ECDH_P256_Private',
+        'Inbound_ECDSA_ECDH_P256_Gnupg_2_1_5',
+        'test');
+  }
+
+  function testGnupg215_P384() {
+    asyncTest.stepTimeout = 5000;
+    runImportEncryptDecrypt(
+        'GnuGP 2.1.5 P384',
+        'InboundKeyGnupg_2_1_5_ECDSA_ECDH_P384',
+        'InboundKeyGnupg_2_1_5_ECDSA_ECDH_P384_Private',
+        'Inbound_ECDSA_ECDH_P384_Gnupg_2_1_5',
+        'test');
+  }
+
+  function testGnupg215_P521() {
+    // Slower operations due to P521 impl lacking fast modulus.
+    asyncTest.stepTimeout = 7000;
+    runImportEncryptDecrypt(
+        'GnuGP 2.1.5 P521',
+        'InboundKeyGnupg_2_1_5_ECDSA_ECDH_P521',
+        'InboundKeyGnupg_2_1_5_ECDSA_ECDH_P521_Private',
+        'Inbound_ECDSA_ECDH_P521_Gnupg_2_1_5',
+        'test');
+  }
+
+  function testOpenKeychain_P256() {
+    runImportEncryptDecrypt(
+        'OpenKeychain P256',
+        'InboundKeyOpenKeychain_ECDSA_ECDH_P256',
+        'InboundKeyOpenKeychain_ECDSA_ECDH_P256_Private',
+        'Inbound_ECDSA_ECDH_P256_OpenKeychain',
+        'q');
+  }
+
+  function testOpenKeychain_P521_bug_1353() {
+    // Slower operations due to P521 impl lacking fast modulus.
+    asyncTest.stepTimeout = 7000;
+    var key = document.getElementById(
+        'InboundKeyOpenKeychain_ECDSA_ECDH_P521_bug1353').value;
+    asyncTest.waitForAsync('Waiting for key import');
+    context.importKey(fail, key).addCallbacks(fail, function(e) {
+        assertEquals('Digest algorithm is too short for this curve.',
+            e.message);
         asyncTest.continueTesting();
     });
   }
@@ -1375,6 +2456,40 @@ zbHR0aWTnV3UspMr7xkuXGRrf6bbRcRsYageinoyItK9Of6W/iFI/sKk/yAXsg==
     });
   }
 
+  function testInboundClearsignV3Packet() {
+    var key = document.getElementById('KeyEncryptionDesktop10_3_2').value;
+    var msg = document.getElementById('InboundClearSignEncryptionDesktop10_3_2').value;
+    asyncTest.waitForAsync('Waiting for import.');
+    context.importKey(function(uid) {
+      fail('Should not call callback');
+    }, key).addCallback(function(importedUids) {
+        assertEquals(importedUids.length, 1);
+        asyncTest.waitForAsync('Waiting for verifyDecrypt.');
+        return context.verifyDecrypt(function(_, cb) {cb('test')}, msg).addCallback(
+          function(vd) {
+            // Verification should not have failed.
+            assertEquals(0, vd.verify.failure.length);
+            assertEquals(1, vd.verify.success.length);
+            asyncTest.continueTesting();
+        });
+    }).addErrback(function(e) {
+        fail(e);
+    });
+  }
+
+  function testInboundClearsignV3PacketNoKey() {
+    var msg = document.getElementById('InboundClearSignNoKeyEncryptionDesktop10_3_2').value;
+    asyncTest.waitForAsync('Waiting for verifyDecrypt.');
+    context.verifyDecrypt(function(_, cb) {cb('test')}, msg).addCallback(
+      function(vd) {
+        // Verification should not have succeeded, because we don't have a key.
+        assertEquals(0, vd.verify.success.length);
+        asyncTest.continueTesting();
+    }).addErrback(function(e) {
+      fail(e);
+    });
+  }
+
   function testInboundSubkeyRevocationPacketRightAfterSubkey() {
     var key = document.getElementById(
         'InboundKeyGnuPg1_RevocationRightAfterSubKey').value;
@@ -1418,6 +2533,18 @@ zbHR0aWTnV3UspMr7xkuXGRrf6bbRcRsYageinoyItK9Of6W/iFI/sKk/yAXsg==
     context.importKey(buildPassphraseCallback('test'), key)
       .addCallback(function(importedUids) {
         assertArrayEquals(['with-experimental'], importedUids);
+        asyncTest.continueTesting();
+    });
+  }
+
+  function testOpenKeychainCustomKeyIssue337() {
+    var key = document.getElementById(
+        'InboundOpenKeyChainCustomKey_Issue337').value;
+    asyncTest.waitForAsync('Waiting for import.');
+    context.importKey(function(uid) {
+      fail("Should not call callback");
+    }, key).addCallback(function(importedUids) {
+        assertArrayEquals(['Google Testing <testing@gmail.com>'], importedUids);
         asyncTest.continueTesting();
     });
   }
